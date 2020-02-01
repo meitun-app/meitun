@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>提交订单</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+
+</style>
+</head>
+<body>
+<div id="intelligentDecoder-main" v-clock  class="SmartCommunity_AiPartner body_bottom_50">
+	<div class="bjbs">
+	<!--提示信息-->
+		<header class="nav">
+			<a></a>
+			<a href="javascript:history.back(-1)"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+		    <h1 class="title">提交订单</h1>
+		</header>
+	<!--收货地址-->
+		<div class="AiPartner_Address">
+			<div class="AiPartner_Name">
+				<p class="AiPartner_Name_people">收货人：</p>
+				<p class="AiPartner_Surname_Name_">{{address.userName}}</p>
+				<p class="AiPartner_Name_Tel">{{address.telNumber}}</p>
+			</div>
+			<div class="AiPartner_ClosedAddress">
+				<div>
+					<img src="../../img/icon/img_done@2x(1).png" />
+					<p>收货地址：{{address.fullRegion}}{{address.detailInfo}}</p>
+				</div>
+				<img src="../../img/icon/RightArrow@2x@2x.png" @click="chooseAddress"/>
+			</div>
+		</div>
+		<div class="fengexian">
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+			<img src="../../img/icon/fengexian@2x (1).png" />
+	
+			
+		</div>
+		
+	<!--产品-->	
+		<template v-for="(index,item) in goods">
+			
+		
+		<div class="AiPartner_AI">
+			<img :src="item.info.listPicUrl"/>
+			<div class="AiPartner_AiText">
+				<h2 class="AiPartner_AiText_title">{{item.info.name}}</h2>
+				<div>
+					<p class="AiPartner_AiText_describe">商品价格</p>
+					<span>¥{{item.info.retailPrice}}</span>
+				</div>
+				<template v-for="spec in item.spec">
+					<div>
+						<p class="AiPartner_AiText_describe">{{spec.specificationName}}</p>
+						<span>{{spec.value}}</span>
+					</div>
+				</template>
+				
+				<div class="AiPartne_kucun">库存{{item.info.goodsNumber}}</div>
+				<div class="AiPartner_AiText_number jj">
+					<span class="jia" @click="jsReduce(index)">-</span>
+					<input class="num" value="{{item.number}}" readonly>
+					<span class="jian" @click="jsAdd(index)">+</span>
+				</div>
+			</div>
+		</div>
+		</template>		
+	</div>
+
+	<div class="AiPartner_send"> <span>*</span>请确保平台账户余额充足，否则会影响购</div>	
+<!--底部支付-->
+	<div class="AiPartner_pay">
+		<p class="AiPartner_pay_price">合计:<span>¥{{orderTotal}}</span></p>
+		<span class="AiPartner_order buy-confirm">提交订单</span>
+	</div>
+<!--密码输入-->
+	<div class="common-part pay-part">
+        <div class="common-dialog pay-dialog">
+        	<div class="clearfix">
+        		<div class="del"><img src="../../img/icon/Del.png" /></div>
+        		<div class="dialog-title">请输入支付密码</div>
+        	</div>
+            
+           <!-- <div class="pay-money">$10000.00</div> -->
+            <div class="pay-password">
+                <input @keyup="checkNumberLen()" type="password" v-model="payPassword" maxlength="7" class="real-ipt">
+                <div class="surface-ipts">
+                    <div class="surface-ipt">
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                    </div>
+                </div>
+				
+            </div>
+			<div id="showSetting" style="display: none;" @click="goSettingPayWord()">未设置支付密码，<a>去设置</a></div>
+            <!--<div class="btns">
+                <button class="cancel-btn">取消</button>
+                <button class="confirm-btn">付款</button>
+            </div>-->
+        </div>
+    </div>
+<!--end密码输入--> 
+	<div class="overFlowDiv"></div>	
+</div>
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/aui-slide.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/mall/intelligentDecoder.js"></script>
+<script>
+
+</script>
+</body>
+</html>

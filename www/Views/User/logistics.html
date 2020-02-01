@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>物流详情</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+
+
+</style>
+</head>
+<body>
+<div id="logistics-main" v-clock class="logistics ">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">物流详情</h1>
+	</header>
+	<div class="logistics_box">
+		<template v-for="(index,item) in logisticsList">
+			
+			<li :class="index == 0?'active':''">
+			<span></span>
+			<h3>{{item.status}}</h3>
+			<p>{{item.time}}</p>
+		</li>
+		</template>
+		<!-- <li class="active">
+			<span></span>
+			<h3>已签收</h3>
+			<p>2019-09-03<span>16:24:03</span></p>
+		</li>
+		<li>
+			<span></span>
+			<h3>您的包裹已出库</h3>
+			<p>2019-09-03<span>16:24:03</span></p>
+		</li>
+		<li>
+			<span></span>
+			<h3>您的包裹已出库</h3>
+			<p>2019-09-03<span>16:24:03</span></p>
+		</li>
+		<li>
+			<span></span>
+			<h3>您的包裹已出库</h3>
+			<p>2019-09-03<span>16:24:03</span></p>
+		</li> -->
+	</div>
+
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/logistics.js"></script>
+
+</body>
+</html>

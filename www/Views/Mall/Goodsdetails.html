@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>商品详情</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+
+
+</style>
+</head>
+<body>
+<div id="goodsdetail-main" v-clock class="SmartCommunity_ProductDetails body_bottom_50">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">商品详情</h1>
+	</header>
+	<div class="details">
+		<template v-for="item in infoDetails">
+				<img :src="item" />
+		</template>
+		
+	</div>
+	<div class="bottom_fixd xxgm ProductDetailsIntroduce_nav" onclick="buycarShow()">立即购买</div>
+	<!--弹框-->	
+	<div class="ProductDetailsIntroduce_nav_buycar">
+		<div class="ProductDetailsIntroduce_nav_buycar_Del" onclick="del()">
+			<img src="../../img/icon/Del.png" />
+		</div>
+		<div class="ProductDetailsIntroduce_nav_buycar_product">
+			<div class="slusp">
+				<img :src="info.listPicUrl" />
+			</div>
+			<div class="ProductDetailsIntroduce_nav_buycar_productIntroduce">
+				<h2>{{info.name}}</h2>
+				<div>
+					<h1>¥{{info.retailPrice}}</h1>
+					<p> 库存{{info.goodsNumber}}件 </p>
+				</div>
+				
+				
+			</div>
+		</div>
+		<div class="ProductDetailsIntroduce_nav_buycar_specifications">
+			
+			<template v-for="sp in specificationList">
+			
+			<h1>{{sp.name}}</h1>
+			<div class="ProductDetailsIntroduce_nav_buycar_specifications_attribute">
+				
+				<template v-for="cv in sp.valueList">
+					
+					<p class="Product_xuanze " :class="cv.selected?'Active':''" @click="clickSkuValue(cv.specification_id,cv.id)">{{cv.value}}</p>
+					
+				</template>
+				
+		
+			</div>
+				
+			</template>
+			
+			
+			<!-- <h1>尺码</h1>
+			<div class="ProductDetailsIntroduce_nav_buycar_specifications_attribute">
+				<p class="Product_xuanze Active">S</p>
+				<p class="Product_xuanze">M</p>
+				<p class="Product_xuanze">L</p>
+			</div> -->
+			<div class="ProductDetailsIntroduce_nav_buycar_number">
+				<h1>购买数量</h1>
+				<div class="jj">
+					<span class="jia" @click="jsReduce">-</span>
+					<input class="num" v-model="orderCount" value="{{orderCount}}">
+					<span class="jian" @click="jsAdd">+</span>
+				</div>
+			</div>
+		</div>
+		
+		<div class="ProductDetailsIntroduce_nav_buycar_determine">
+			<a @click="submitOrder()">
+				<p>确定</p>
+			</a>
+			
+		</div>
+	</div>
+	<!--密码输入-->
+<div class="common-part pay-part">
+        <div class="common-dialog pay-dialog">
+        	<div class="clearfix">
+        		<div class="del"><img src="../../img/icon/Del.png" /></div>
+        		<div class="dialog-title">请输入支付密码</div>
+        	</div>
+            
+<!--            <div class="pay-money">$10000.00</div>-->
+            <div class="pay-password">
+                <input @keyup="checkNumberLen()" type="password" v-model="payPassword" maxlength="7" class="real-ipt">
+                <div class="surface-ipts">
+                    <div class="surface-ipt">
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                    </div>
+                </div>
+            </div>
+            <!--<div class="btns">
+                <button class="cancel-btn">取消</button>
+                <button class="confirm-btn">付款</button>
+            </div>-->
+        </div>
+    </div>
+ <!--end密码输入--> 
+	
+	
+	<div class="overFlowDiv"></div>
+</div>
+
+<!-- <script src="../../js/aui-slide.js"></script> -->
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/mall/GoodsDetails.js"></script>
+<script>
+	     // var slide = new auiSlide({
+      //      container:document.getElementById("aui-slide"),
+      //      // "width":300,
+      //      "height":260,
+      //      "speed":364,
+      //      "pageShow":true,
+      //      "pageStyle":'dot',
+      //      "loop":true,
+      //      'dotPosition':'center',
+      //      currentPage:currentFun
+      //  })
+       // function currentFun(index) {
+       //     console.log(index);
+       // }
+       // var slide2 = new auiSlide({
+       //     container:document.getElementById("aui-slide2"),
+       //     // "width":300,
+       //     "height":364,
+       //     "speed":300,
+       //     "autoPlay":4000, //自动播放
+       //     "pageShow":true,
+       //     "loop":true,
+       //     "pageStyle":'dot',
+       //     'dotPosition':'center'
+       // })
+       // var slide3 = new auiSlide({
+       //     container:document.getElementById("aui-slide3"),
+       //     // "width":300,
+       //     "height":240,
+       //     "speed":500,
+       //     "autoPlay": 3000, //自动播放
+       //     "loop":true,
+       //     "pageShow":true,
+       //     "pageStyle":'line',
+       //     'dotPosition':'center'
+       // })
+       // console.log(slide3.pageCount());
+	//选色
+	// function xuanze(){
+	// 	$(".Product_xuanze").click(function(){
+	// 		$(this).toggleClass("Active");
+	// 		$(this).siblings().removeClass("Active");
+	// 	})
+	// }
+	// xuanze();
+	//点击确定
+	function buycarShow(){
+		$(".ProductDetailsIntroduce_nav_buycar,.overFlowDiv").toggleClass("show");
+	}
+	function del(){
+		$(".ProductDetailsIntroduce_nav_buycar,.overFlowDiv").toggleClass("show");
+	}
+	
+	
+// 	$(function(){
+// 	$(".jian").click(function(){
+// 		var a = $(this).prev().val();
+// 		a++;
+// 		$(this).prev().val(a);
+// 		js();
+// 
+// 	})
+// 	$(".jia").click(function(){
+// 		var a = $(this).next().val();
+// 		if (a>1) {
+// 			a--;
+// 		}
+// 		$(this).next().val(a);
+// 		var a = $(".xz").attr("data");
+// 		if(a==1){
+// 			js();
+// 		}
+// 	})
+// 
+// 	 function js(){
+// 
+// 		var num=0;
+// 		var conut=0;
+// 		$(".xz").each(function(){
+// 			if ($(this).attr("data")==1) {
+// 				var b = $(this).parent().next().next().find(".num").val();
+// 				var jg = $(this).parent().next().next().next().find(".pri").text();
+// 				conut+=parseInt(b);
+//     			num+=b*jg;
+// 			}
+// 		})
+// 		
+//   		$('#zj').html(num);
+//   		$('#zsl').html(conut);
+// 	}
+// })
+</script>
+
+<!--密码输入框-->
+<script>
+$(".buy-confirm").on("click", function () {
+    // 打开支付密码对话框并生成订单
+    $('.pay-part').css("display", "block");
+})
+$(".cancel-btn").on("click", function () {
+    $('.pay-part').css("display", "none");
+    $inputs.each(function () {  //input清空
+        $(this).val("");
+    })
+    pwd = "";
+    $(".real-ipt").val("");
+})
+$(".confirm-btn").on("click", function () {
+    
+    if (len === 6 && pwd) {     //付款
+ 
+                    // $.toast("密码错误")
+        window.location.href = 'activity_buy_result.html'
+ 
+                } else {
+                    $.toast("请输入支付密码")
+                }
+            })
+ 
+            var pwd = "";
+var len = 0;
+// type=tel input框
+var $inputs = $(".surface-ipt input");
+$(".real-ipt").on("input", function () {
+    if (!$(this).val()) {   //无值
+    }
+    if (/^[0-9]*$/g.test($(this).val())) {  //有值且只能是数字（正则）
+        pwd = $(this).val().trim();
+        len = pwd.length;
+        for (var i in pwd) {
+            $inputs.eq(i).val(pwd[i]);
+        }
+        $inputs.each(function () {  //将有值的当前input 后面的所有input清空
+            var index = $(this).index();
+            if (index >= len) {
+                $(this).val("");
+            }
+        })
+        if (len === 6) {
+            //执行付款操作
+                    }
+ 
+                } else {    //清除val中的非数字，返回纯number的value
+        var arr = $(this).val().match(/\d/g);
+        try {
+            $(this).val($(this).val().slice(0,$(this).val().lastIndexOf(arr[arr.length-1])+1));
+        } catch(e) {
+            // console.log(e.message)
+            //清空
+            $(this).val("");
+        }
+    }
+    console.log("password:" + pwd);
+})
+//  获取焦点事件避免输入键盘挡住对话框
+$('.real-ipt').on('focus', function () {
+    $('.pay-dialog').css('top','1rem')
+})
+$('.real-ipt').on('blur', function () {
+    $('.pay-dialog').css('top','3rem')
+})
+
+//点击输出支付款
+$(".del").click(function(){
+	$(".common-part").hide();
+})
+
+
+//下拉进入详情页
+// $(".details").ready(function(){
+//     var a,b,c,d;
+//     a = $(window).height();    //浏览器窗口高度
+//     c = $(".details").offset().top;    //元素距离文档（document）顶部的高度
+//     $(window).scroll(function(){
+//         b = $(this).scrollTop();   //页面滚动的高度  
+//         d = c - a;
+//         if(b> 10){
+//             
+//            window.location.href="javascript:history.back(-1)";
+//            
+//         }
+//     });
+// });
+</script>
+</body>
+</html>

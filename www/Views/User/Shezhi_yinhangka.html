@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>银行卡</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="bankList-main" v-clock class="shehi">
+	<header class="nav clearfix">
+		<a href=""></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>			
+	    <h1 class="title">{{t==1?"选择银行卡":"银行卡"}}</h1>	    
+	</header>
+	<div class="shehi_ka">
+		<template v-for="item in bankList">
+		<div class="shezhi_kaInfo" @click="choose(item)">
+			<li>
+				<img src="../../img/icon/yinhangka1@2x.png" />
+				<div>
+					<p>{{item.bankName}}</p>
+					<span>储蓄卡</span>
+				</div>
+			</li>
+			<span><a @click="delete(item.id)">解除绑定</a></span>
+			<p>
+				<template v-for="cardlist in item.cardNoList">
+					<span>{{cardlist}}<span>
+				</template>
+			</p>
+		</div>
+		</template>
+		
+		<!-- <div class="shezhi_kaInfo">
+			<li>
+				<img src="../../img/icon/yinhangka@2x.png" />
+				<div>
+					<p>招商银行卡</p>
+					<span>储蓄卡</span>
+				</div>
+			</li>
+			<span><a>解除绑定</a></span>
+			<p><span>****</span><span>****</span><span>****</span><span>7526</span></p>
+		</div> -->
+		<li class="tj_yhk">
+			<a href="Shezhi_tianjiaka.html">
+				<img src="../../img/Activity/tiajia@2x.png"/>			
+				<span id="">添加银行卡</span>
+			</a>
+		</li>
+	</div>
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/bankList.js"></script>
+</body>
+
+</html>

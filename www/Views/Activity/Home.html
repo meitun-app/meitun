@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>首页</title>
+    <script src="../../js/jquery-3.3.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+	<style>
+			html{
+				font-size: 13.3333333vw;
+			}
+		html,body,#home-main{
+			height: 100%;
+		}
+		#login-main{
+			position: relative;
+		}
+		#cover{
+			position: absolute;
+			top:0;
+			left:0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,.5);
+			z-index: 999;
+			display: none;
+		}
+		.coverbox{
+			/* margin-top: 3.31rem; */
+			margin: 3.14rem auto 0;
+			width: 6.14rem;
+			height: 6.74rem;
+			border-radius:0.2rem;
+			background-color: #fff;
+			position: relative;
+		}
+		.coverbox .bg img{
+			width:100% ;
+		}
+		.coverbox .bottom{
+			padding:  0 .5rem;
+		}
+		.coverbox p{
+			font-size:.3rem;
+			line-height:0.42rem;
+			color:rgba(51,51,51,1);
+			padding: .56rem 0 .48rem;
+		}
+		#close{
+			width: .44rem;
+			height: .44rem;
+			position: absolute;
+			top:.4rem;
+			right:.4rem;
+		
+		}
+		button{
+			font-size:.32rem;
+			line-height:0.86rem;
+			background-color: #2F82FF;
+			border-radius:.43rem;
+			width: 100%;
+			border:none;
+			outline: none;
+			color:#fff;
+		}
+		</style>
+</head>
+<body>
+<div id="home-main" v-clock class="HomePage body_bottom_x65">	
+		<div id="cover">
+				<div class="coverbox">
+					<!-- <img src="../../img/icon_close.png" alt="" id="close"> -->
+					<div class="bg">
+							<img src="../../img/pdate.png" alt="">
+					</div>
+					<div class="bottom">
+							<p>发现新版本，历史版本将不再支持，请立即更新！</p>
+							<button id="sure">立即更新</button>
+					</div>
+				</div>
+			</div>
+	<div class="dizhidingwei">
+		<img src="../../img/Activity/Positioning@2x.png" />
+	    <h1>{{weather.city}}</h1>
+	</div>
+<!--天气-->	
+	<div class="weather">
+		<div class="weather_inside">
+			<div><p>{{weather.temperature}}</p><span>℃</span></div>
+			<p>室外气温度</p>
+		</div>
+		<div class="weather_outside">
+			<div class="list">
+				
+				<img id="weatherImg" src="../../img/weatherIcon/0.png" />
+				<span>{{weather.skycon}}</span>
+				
+			</div>
+			<div class="second">
+				<div>
+					<h3>{{weather.pm25}}</h3>
+					<p>室外pm2.5</p>
+				</div>
+				<div>
+					<h3>{{weather.quality}}</h3>
+					<p>室外空气质量</p>
+				</div>
+			</div>
+		</div>
+	</div>	
+<!--引导-->
+<!-- 	<div class="guide">
+		<div>
+			<img src="../../img/Activity/yindao@2x.png" />
+			<p>完成新手引导将有积分获取，更多积分等您领取</p>
+		</div>		
+		<img id="yddel" src="../../img/Activity/del@2x.png" />
+	</div> -->
+<!--我的收益-->
+	<div class="item">
+		<h1>我的设备</h1>
+
+		
+			
+			<template v-for="item in deviceVos">
+				<div class="content02 fis">
+					<li>
+						<div class="content02_list" @click="goDetail(item.id)">
+							<img src="../../img/icon/hulian@2x.png" />
+							<div>
+								<h1>{{item.name}}</h1>
+								<div class="zt">
+									<img :src="item.isOnline==1?'../../img/icon/wifi@2x.png':'../../img/icon/wifihui@2x.png'" />
+									<p>{{item.isOnline==1?'设备已连接':'设备离线'}}</p>
+								</div>						
+							</div>
+						</div>
+						<div class="home_kaiguanbox" @click="setOnLine(item)">						
+							<!--<p>设为默认地址</p>-->
+							<!-- <span class="defaultAddress" :class="item.power == 1?'defaultAddress01':''" >
+								ON<small class="defaultAddress_mark" :class="item.power == 1?'defaultAddress_mark01':''"></small>
+							</span> -->
+							<img id="switchs"  :src="item.power==1?'../../img/icon/shebeionline@2x.png':'../../img/icon/shebeioffline@2x.png'" />
+					   </div>
+					</li>
+					<li @click="goDetail(item.id)">
+						<div class="last">
+							<img src="../../img/icon/xl@2x.png"/>
+							<span>芯滤</span>
+							<p>{{item.filterElement}}%</p>
+						</div>
+						<div class="last">
+							<img src="../../img/icon/fx@2x.png"/>
+							<span>风速</span>
+							<p>{{item.windSpeed}}</p>
+						</div>
+						<div class="last">
+							<img src="../../img/icon/ds@2x.png"/>
+							<span>定时</span>
+							<p>{{item.timing == 0?'未设置':item.timing}}</p>
+						</div>
+					</li>
+				</div>
+			</template>
+			
+			<div class="content01">
+				<a href="Tjsbyi.html">
+					<img src="../../img/Activity/tiajia@2x.png" />
+					<p>{{deviceVos.length == 0?'还没有设备，请添加设备!':'请添加设备!'}}</p>
+				</a>			
+			</div>
+					
+	</div>
+<!--我的设备-->	
+	<div class="item">
+		<h1>我的设备</h1>
+		<div class="content02" @click="goShebeiList()">
+			<p>与我有关的设备<span>{{deviceNums}}</span>台在线</p>
+			<div class="earnings">
+				<div>
+					<p>昨日收益</p>
+					<p><span>{{yesterdayIncome}}</span>{{coinType}}</p>
+				</div>
+				<div>
+					<p>累计收益</p>
+					<p><span>{{grandTotalIncome}}</span>{{coinType}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--底部导航-->
+	<div id="footer" class="border-t">
+	    <ul class="flex-wrap" >
+	        <a href="Home.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active" >互联</a>
+	        <a href="../Earnings/Earnings.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >收益</a>
+	        <a href="../Mall/Mall.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >商城</a>	        
+	        <a href="../User/User.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >我的</a>	        
+	    </ul>
+	</div>
+<!--END底部导航-->	
+</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/Activity/home.js"></script>
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};
+$("#yddel").click(function(){
+	$(".guide").hide();
+})
+
+
+function svn(t) {
+			this.versions = plus.runtime.version
+			var xhr_svn = new plus.net.XMLHttpRequest()
+			let platform = 1
+			var ua = navigator.userAgent.toLowerCase()
+			if (/iphone|ipad|ipod/.test(ua)) {
+				platform = 2
+			}
+			xhr_svn.onreadystatechange = function() {
+			  if (xhr_svn.readyState === 4) {
+				if (xhr_svn.status === 200) {
+				  var res = JSON.parse(xhr_svn.responseText)
+				  if (res.errno == 0) {
+					if (res.data.version !== t) {
+						$('#cover').show()
+					  if (/iphone|ipad|ipod/.test(ua)) {
+						$('#sure')[0].onclick=()=>{
+							plus.runtime.launchApplication( {action:"https://appfront.meitun.ai/page/html/download-star.html"}, function ( e ) {
+                              alert( "Open system default browser failed: " + e.message );
+                            } );
+						}
+					  } else {
+						var upr
+						$('#sure')[0].onclick=()=>{
+							// $('#cover').hide()
+							var wt = plus.nativeUI.showWaiting('下载更新中，请勿关闭')
+							var url = res.data.download_path
+							plus.qinglian.getDownloadApkUrl();
+							var dtask = plus.downloader.createDownload(url, {}, function(d, status) {
+							  if (status === 200) { // 下载成功
+								var path = d.filename
+								plus.qinglian.apkInstall(path);
+								//plus.runtime.install(path)
+							  } else { // 下载失败
+								alert('下载失败: ' + status)
+							  }
+							})
+							dtask.start()
+						}
+					  }
+					} else {
+					  console.log('最新')
+					}
+				  }
+				} else {
+				  plus.nativeUI.toast('网络连接错误！')
+				}
+			  }
+			}
+			xhr_svn.open('POST', $.apiUrl + '/api/version/query?platform='+platform)
+			xhr_svn.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr_svn.send(null)
+		  }
+
+		  mui.plusReady(()=>{
+			svn(plus.runtime.version)
+			})
+			//$('#cover').
+			$('#close').click(()=>{
+				plus.runtime.quit()
+			})
+		
+</script>
+<script src="../../js/nativity/test.js"></script>
+<script src="../../js/base.js"></script>
+</html>

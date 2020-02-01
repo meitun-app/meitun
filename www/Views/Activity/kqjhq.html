@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>空气净化器</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+
+
+</style>
+</head>
+<body>
+<div id="kqjhq-main" v-clock class="kqjhq">
+	<div class="tou">
+		<header class="nav nav_wu ">
+			<a></a>
+			<a href="javascript:history.back(-1)"><img src="../../img/icon/LeftArrowbai@2x.png" /></a>		
+		    <h1 class="title">{{device.name}}</h1>
+		</header>
+		<div class="wifi_kaiguanbox">
+			<div class="wifi_zhuangtai">
+				<img  :src="device.isOnline==1?'../../img/icon/wifi@2x.png':'../../img/icon/wifihui@2x.png'" />
+			</div>
+			
+			<!-- <div class="wifi_kaiguan" @click="setOnLine()" ><img id="switchs"  :src="device.power==1?'../../img/icon/kaiguan_kai@2x.png':'../../img/icon/kaiGuan_guan@2x.png'" /></div> -->
+			<div class="wifi_kaiguan" @click="setOnLine()" ><img id="switchs"  :src="device.power==1?'../../img/icon/shebeionline@2x.png':'../../img/icon/shebeioffline@2x.png'" /></div>
+		</div>
+		<div class="pm clearfix">
+			<div>
+				<p>室内pm2.5</p>
+				<h1>{{device.airPm}}</h1>
+				<span>{{device.airPmDesc}}</span>
+			</div>
+			<span></span>
+			<div>
+				<p>室内温度</p>
+				<h1>{{device.indoorT}}<span>℃</span></h1>
+				<span>{{device.indoorTDesc}}</span>
+			</div>
+		</div>
+		<div class="content02">
+			<li>
+				<div class="last">
+					<img src="../../img/icon/xlbai@2x.png"/>
+					<span>芯滤</span>
+					<p>{{device.filterElement}}%</p>
+				</div>
+				<div class="last">
+					<img src="../../img/icon/fengsu@2x.png"/>
+					<span>风速</span>
+					<p>{{device.windSpeed}}</p>
+				</div>
+				<div class="last">
+					<img src="../../img/icon/dingshi@2x.png"/>
+					<span>定时</span>
+					<p>{{device.timing == 0?'未设置':device.timing}}</p>
+				</div>
+			</li>
+		</div>
+	</div>
+	<div>
+		<div  class="border_tab">
+		    <ul class="flex-wrap" >
+		        <li  onclick="randomSwitchBtn( this );" class="flex-con active" ></li>
+		        <li  tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" ></li>
+		        <li  tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" ></li>	        
+		        <li  tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" ></li>
+		        <li  tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" ></li>
+		    </ul>
+		</div>
+	</div>
+	<div class="kqjhq_info">
+		<li class="fengsu" style="display: block;">
+			<h1>风速设置</h1>
+			<div>				
+				<div>
+					<img src="../../img/Activity/fengsu@2x.png" @click="subFeng()"/>
+					<p><span class="changdu"></span><span class="dian"></span></p>
+					<img src="../../img/Activity/fengsu@2x.png" @click="addFeng()"/>
+
+				</div>
+				<p class="suduzhuangtai"><small>低速</small><small>中速</small><small>高速</small><small>超高速</small></p>				
+			</div>
+		</li>
+		<li class="dingshi">
+			<h1>定时设置</h1>
+			<div>
+
+				<p class="jia" @click="jianTimingFun()">-</p>
+				<p id="shjian">{{device.timing}}<span>小时</span></p>
+				<p class="jian" @click="addTimingFun()">+</p>
+			</div>
+		</li>
+		<li class="tongsuo">
+			<h1>等离子设置</h1>
+			<div>
+				<p @click="setDengLiZi(1)" class="dlzsz" :class="device.plasma==1?'choose':''">开启</p>
+				<p @click="setDengLiZi(0)" class="dlzsz" :class="device.plasma==0?'choose':''">关闭</p>
+			</div>
+		</li>
+		<li class="tssz">
+			<h1>童锁设置</h1>
+			<div  class="moshi_box">
+			    <ul>
+			        <div tapmode="hover" @click="setTongSuo(1)" class="flex-con" :class="device.vChip==1?'active':''" >关闭童锁</div>
+			        <div tapmode="hover" @click="setTongSuo(0)" class="flex-con" :class="device.vChip==0?'active':''" >开启童锁</div>       
+			    </ul>
+			</div>
+		</li>
+		<li class="moshi">
+			<h1>模式设置</h1>
+			
+			<div  class="moshi_box">
+			    <ul>
+			        <div tapmode="hover" @click="setPattern(1)" class="flex-con" :class="device.pattern==1?'active':''" >自动模式</div>
+			        <div tapmode="hover" @click="setPattern(2)" class="flex-con" :class="device.pattern==2?'active':''" >睡眠模式</div>
+			        <div tapmode="hover" @click="setPattern(3)" class="flex-con" :class="device.pattern==3?'active':''" >自定义模式</div>	        
+			    </ul>
+			</div>
+		</li>		
+	</div>
+	
+	
+
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/Activity/kqjhq.js"></script>
+<script>
+//页面加载完成后执行
+$(function(){	
+	model();//点击切换模式
+	denglizi();//等离子
+	//dingshi();//定时设置
+	//fengsu();//风速
+})
+
+
+function randomSwitchBtn (tag) {
+	
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};
+//点击切换模式
+function model(){
+	// $(".dlzsz").click(function(){
+	// 	$(this).addClass("choose");
+	// 	$(this).siblings().removeClass("choose")
+	// })	
+}
+
+
+//点击等离子
+function denglizi(){
+	$(".flex-wrap li").click(function(){
+		var x = $(this).index();	
+		$(".kqjhq_info li").eq(x).show();
+		$(".kqjhq_info li").eq(x).siblings().hide();
+	})	
+}
+
+//开关
+function kaiguan(){
+	var test1 = document.getElementById('switchs');
+    if(test1.src.indexOf('kaiguan') >= 0){
+        test1.src="../../img/icon/kaiGuan_guan@2x.png";
+    }else{
+        test1.src="../../img/icon/kaiguan_kai@2x.png";
+    }
+}
+
+
+//定时设置
+// function dingshi(){
+// 	$(function(){
+// 	   	$(".jian").click(function(){
+// 	   		var a = parseFloat($(this).prev().html());
+// 	   		console.log(a);
+// 	   		a= a + 0.5;
+// 	   		$(this).prev().html(a.toFixed(1) + "<span>小时</span>");
+// 	 
+// 	   	})
+// 	   	$(".jia").click(function(){
+// 	   		var a = parseFloat($(this).next().html());
+// 	   		if (a>0.5) {
+// 	   			a= a - 0.5;	   			
+// 	   		}
+// 	   		$(this).next().html(a.toFixed(1) + "<span>小时</span>");
+// 	   	})
+// 	   
+//    })
+// }
+
+
+//风速
+// function fengsu(){
+// 	$(".suduzhuangtai small").click(function(){
+// 		var zhuangtai = $(this).index();
+// 		if (zhuangtai == 0) {
+// 			$(".changdu").css("width","0");
+// 			$(".dian").css("left","0");			
+// 		}else if (zhuangtai == 1) {
+// 			$(".changdu").css("width","calc(25% + 15px)");
+// 			$(".dian").css("left","calc(25% + 15px)");	
+// 		} else if (zhuangtai == 2){
+// 			$(".changdu").css("width","calc(55% + 15px)");
+// 			$(".dian").css("left","calc(55% + 15px)");	
+// 		}else if (zhuangtai == 3){
+// 			$(".changdu").css("width","100%");
+// 			$(".dian").css("left","100%");	
+// 		}
+// 	})
+// }
+</script>
+
+</body>
+</html>

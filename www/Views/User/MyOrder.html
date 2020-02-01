@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>我的订单</title>
+	<script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+	<link href="../../css/style.css" rel="stylesheet"/>
+	<style>
+		.mui-scroll{
+			position: relative !important;
+		}
+		.MyOrder_state span{
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<div id="myorder-main" v-clock class="SmartCommunity_MyOrder bjbs">
+	<div id="pullrefresh" class=" mui-scroll-wrapper">
+		<div class="mui-scroll">
+<!--分类-->	
+	<header class="nav" >
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">我的订单</h1>
+	    <!--<div class="newAddress"><a @click="goDetail(0)"></a></div>-->
+	</header>
+	<header class="tabHead">
+		<span class="active"><a name="All"></a>全部</span>
+		<span><a name="GenerationOfPayment"></a>待付款</span>
+		<span><a name="ToSendTheGoods"></a>待发货</span>
+		<span><a name="ForTheGoods"></a>已发货</span>
+		<span><a name="HasBeenCompleted"></a>已完成</span>		
+	</header>
+	<div class="border"></div>
+<!--内容-->
+	<article class="khfxWarp">
+		<!--全部-->
+		<section class="khfxPane" style="display:block">
+			
+			<div class="all">
+				
+				<ul>
+					<template v-if="orderList.length == 0">
+						
+							<img class="kong" src="../../img/Group2@2x.png" />
+						
+						
+					</template>
+					<template v-else>
+					
+					<template v-for="item in orderList">
+					<li><a style=" clear: both;display: block;">
+						<div class="MyOrder_title">
+							<p class="MyOrder_titlenumber"></p>
+							<p class="MyOrder_titlepayment">{{item.order_status_text}}</p>
+						</div>
+						<template v-for="goods in item.orderItem">
+							<div class="MyOrder_product" @click="goDetail(item.id)">
+								<div class="SmartShopping_Productim">
+									<img :src="goods.list_pic_url" />
+								</div>
+								
+								<div class="MyOrder_product_text">
+									<p class="MyOrder_product_text_title">{{goods.goods_name}}</p>
+									<template v-for="spec in goods.attributeVos">
+										<div>
+											<p class="AiPartner_AiText_describe">{{spec.name}}</p>
+											<span>{{spec.value}}</span>
+										</div>
+										
+									</template>
+									<!-- <div>
+										<p class="AiPartner_AiText_describe">颜色分类</p>
+										<span>白色</span>
+									</div>
+									<div>
+										<p class="AiPartner_AiText_describe">能源规格</p>
+										<span>电能</span>
+									</div> -->
+								</div>
+							
+							</div>
+						</template>
+						<p class="MyOrderAllNumber">共计<span>{{item.goodsCount}}</span>件商品 合计：<span>￥{{item.order_price}}</span></p>
+						<div class="MyOrder_state">
+							<!-- <a v-show="item.handleOption.pay" class="MyOrder_state_payment btn-cta-secondary buy-confirm" @click="toPay(item.id)" href="javascript:;">去付款</a>
+							<a v-show="item.handleOption.cancel"  class="MyOrder_state_cancel btn-cta-secondary"  @click="cancelOrder(item.id)" href="javascript:;">取消订单</a>
+							<a v-show="item.handleOption.remaind" class="MyOrder_state_cancel btn btn-cta-secondary" href="javascript:;">提醒发货</a>
+							<a v-show="item.handleOption.delivery" class="MyOrder_state_cancel btn btn-cta-secondary" @click="confirmOrder(item.id)" href="javascript:;">确认收货</a>
+							<a v-show="item.handleOption.delete" class="MyOrder_state_cancel btn btn-cta-secondary" @click="deleteOrder(item.id)" href="javascript:;">删除订单</a> -->
+
+							<span v-show="item.handleOption.pay" class="MyOrder_state_payment btn-cta-secondary buy-confirm" @click="toPay(item.id)">去付款</span>
+							<span v-show="item.handleOption.cancel"  class="MyOrder_state_cancel btn-cta-secondary"  @click="cancelOrder(item.id)" >取消订单</span>		
+							<span v-show="item.handleOption.remaind" class="MyOrder_state_cancel btn btn-cta-secondary">提醒发货</span> 
+							
+							<span v-show="item.handleOption.delivery" class="MyOrder_state_cancel btn btn-cta-secondary" @click="confirmOrder(item.id)">确认收货</span> 
+							<span v-show="item.handleOption.delete" class="MyOrder_state_cancel btn btn-cta-secondary" @click="deleteOrder(item.id)">删除订单</span> 
+						</div>
+					</a></li>
+					</template>
+					</template>
+				</ul>		
+				
+			</div>
+			
+		</section>
+		
+	</article>	
+		</div>
+	</div>
+
+<!--弹框-->		
+<!--覆盖框-->
+<!--密码输入-->
+	<div class="common-part pay-part">
+        <div class="common-dialog pay-dialog">
+        	<div class="clearfix">
+        		<div class="del"><img src="../../img/icon/Del.png" /></div>
+        		<div class="dialog-title">请输入支付密码</div>
+        	</div>
+            
+<!--            <div class="pay-money">$10000.00</div>-->
+            <div class="pay-password">
+                <input @keyup="checkNumberLen()" type="password" v-model="payPassword" maxlength="7" class="real-ipt">
+                <div class="surface-ipts">
+                    <div class="surface-ipt">
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                    </div>
+                </div>
+            </div>
+			<div id="showSetting" style="display: none;" @click="goSettingPayWord()">未设置支付密码，<a>去设置</a></div>
+            <!--<div class="btns">
+                <button class="cancel-btn">取消</button>
+                <button class="confirm-btn">付款</button>
+            </div>-->
+        </div>
+    </div>
+<!--end密码输入--> 
+	<div class="overFlowDiv"></div>
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/myOrder.js"></script>
+<script src="../../js/main.js"></script>
+<script>
+
+</script>
+</body>
+
+
+</html>

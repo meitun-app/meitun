@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>设置</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div class="shehi"  id="shezhi-main" v-clock >
+	<div class="bjbs">
+		<header class="nav clearfix">
+			<a href=""></a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>			
+		    <h1 class="title">设置</h1>	    
+		</header>
+		<div class="zhihang" >
+			<a href="../LogInTo/ForgotPassword.html?t=1">
+				<h3>修改登录密码</h3>		
+				<div class="xzyhk_gou"><img src="../../img/icon/RightArrow@2x@2x.png" /></div>	
+			</a>
+		</div>
+		<div class="zhihang" >
+			<a href="../LogInTo/ForgotPassword.html?t=2">
+				<h3>支付密码</h3>		
+				<div class="xzyhk_gou"><img src="../../img/icon/RightArrow@2x@2x.png" /></div>	
+			</a>
+		</div>
+		<div class="zhihang " >
+			<a href="Shezhi_yinhangka.html">
+				<h3>银行卡</h3>		
+				<div class="xzyhk_gou"><img src="../../img/icon/RightArrow@2x@2x.png" /></div>	
+			</a>
+		</div>	
+	</div>	
+	<div class=" tijiao" onclick="logout()">退出</div>
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/shezhi.js"></script>
+
+<script>
+	mui.init({
+		
+	})
+	function logout(){		
+		localStorage.removeItem("X-StarNode-Token");
+		window.location.href="../LogInTo/LogInTo.html";
+	}
+	function returnPreviousPage() { 
+	    window.history.back();    
+	} 
+</script>
+</body>
+
+
+</html>

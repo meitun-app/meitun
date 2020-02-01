@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="user-main" class="user body_bottom_x65">
+
+	<div class="Head">
+		<li>
+			<a href="Shezhi.html">
+				<img src="../../img/icon/shezhi@2x.png" />
+			</a>	
+		</li>
+		
+		<div @click="goGerenxinxi()">
+			<img :src="userInfo.avatar"/>
+			<div>
+				<p>{{userInfo.nickname==''?'请设置':userInfo.nickname}}</p>
+				<div class="mobile">
+					<p>{{userInfo.mobile}}</p>
+					<div>{{userInfo.role == 'OperatingCenter'?'运营中心':userInfo.role == 'Vip'?'Vip':userInfo.role == 'Partner'?'合伙人':userInfo.role == 'Members'?'会员':'普通会员'}}</div>
+				</div>
+				
+				<!-- <div>
+						
+						<p style="background: #F0AD4E;border-radius:13px;">{{userInfo.role == 'OperatingCenter'?'运营中心':userInfo.role == 'Vip'?'Vip':'普通会员'}}</p>
+				</div> -->
+				
+			</div>
+		</div>
+	</div>
+	<div class="userBox">
+		<!--<div class="userBoxFirst">
+			<div>
+				<p><a href="MyJifen.html">我的积分</a></p>
+				<p><a>{{asset.shareScore}}</a></p>
+			</div>
+			<div>
+				<p><a href="MyQianbao.html">我的钱包</a></p>
+				<p><a>{{asset.wallet}}<span>元</span></a></p>
+			</div>
+		</div>-->
+		<div class="userBoxSecond">
+			<li><a href="MyAssets.html">
+				<p>我的资产</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+			<li><a href="MyQianbao.html">
+				<p>我的钱包</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+			<li><a href="Myxingfentuan.html">
+				<p>我的星粉团</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+		<!-- 	<li><a>
+				<p>我的邀请码{{userInfo.userNo}}</p>
+				<span class="copy" @click="copyText(userInfo.userNo)">点击复制</span>
+			</a></li> -->
+			<li><a href="share.html">
+				<p>我的二维码</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+			<li><a href="address.html">
+				<p>收货地址</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+			<li><a href="MyOrder.html">
+				<p>我的订单</p>
+				<span>{{orderNum}}<img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+			<li><a href="MyShebei.html">
+				<p>我的设备</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+		</div>
+		<div class="userBoxSecond">
+			<li><a href="bangzhu.html">
+				<p>帮助中心</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+			<li><a href="FankuiJianyi.html">
+				<p>问题与建议</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+			<li><a href="aboutUser.html">
+				<p>关于我们</p>
+				<span><img src="../../img/icon/RightArrow@2x@2x.png" /></span>
+			</a></li>
+		</div>
+	</div>
+<!--底部导航-->
+	<div id="footer" class="border-t">
+	    <ul class="flex-wrap" >
+	        <a href="../Activity/Home.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con " >互联</a>
+	        <a href="../Earnings/Earnings.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >收益</a>
+	        <a href="../Mall/Mall.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >商城</a>	        
+	        <a href="User.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active" >我的</a>	        
+	    </ul>
+	</div>
+<!--END底部导航-->	
+</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/user.js"></script>
+
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+
+
+</script>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>添加银行卡</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="bank-main" v-clock class="shehi_tjk">
+	<header class="nav clearfix">
+		<a href=""></a>
+		<a href="javascript:history.back(-1)"><img src="../../img/icon/LeftArrow@2x.png" /></a>			
+	    <h1 class="title">添加银行卡</h1>	    
+	</header>
+	<h1>银行卡信息</h1>
+	<section class="aui-flexView">
+        <section class="aui-scrollView">
+            <div class="aui-address-box">
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">持卡人</div>
+                    <div class="aui-cell-input">
+                        <input type="text" class="cell-input" v-model="detail.name" placeholder="请输入持卡人姓名" autocomplete="off">
+                    </div>
+                </div>
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">卡号</div>
+                    <div class="aui-cell-input">
+                        <input type="number" @keydown="telCardNoDown()"  class="cell-input" v-model="detail.cardNo" placeholder="请输入银行卡卡号" autocomplete="off">
+                    </div>
+                </div>
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">开户行</div>
+                    <div class="aui-cell-input cell-input-text">
+                        <input type="text" class="cell-input" v-model="detail.bankName"  placeholder="请输入持卡开户行">
+                    </div>
+                </div>
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">开户省市</div>
+                    <div class="aui-cell-input cell-input-text">
+                        <input type="text" class="cell-input" readonly id="J_Address" v-model="allRegion"  placeholder="请输入开户省市">
+                    </div>
+                </div>
+            </div>
+        </section>        
+    </section>
+    <h1>银行卡验证</h1>
+    	<section class="aui-flexView">
+        <section class="aui-scrollView">
+            <div class="aui-address-box">
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">手机号</div>
+                    <div class="aui-cell-input">
+                        <input type="number" @keydown="telNumberDown()" class="cell-input" v-model="detail.mobile" placeholder="请输入持卡人手机号" autocomplete="off">
+                    </div>
+                </div>
+				<div class="mima">
+					<li class="phones">
+						<p>验证码</p>
+						<input type="text" v-model="detail.code"  placeholder="验证码">
+					</li>			
+					<li class="eyes huoquyanzhengma" @click="sendCode">
+			    
+						{{time === 60 ? '获取验证码' : time+'s'}}
+					</li>
+				</div>
+            </div>
+        </section>  
+	<div @click="save()" class=" tijiao">下一步</div>
+</div>
+ 
+  <script src="../../js/mui.min.js"></script>
+	<script src="../../js/vue.min.js"></script>
+	<script src="../../js/base.js"></script>
+	 <script src="../../js/address.js"></script>
+  <script src="../../js/city.js"></script> 
+	<script src="../../js/user/bank.js"></script>
+  <script>
+  	    /**
+     * 默认调用
+     */
+      !function() {
+          var $target = $('#J_Address');
+
+          $target.citySelect();
+
+          $target.on('click', function(event) {
+              event.stopPropagation();
+              $target.citySelect('open');
+          });
+
+          $target.on('done.ydui.cityselect', function(ret) {
+              
+              $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+          });
+      }();
+    /**
+     * 设置默认值
+     */
+    function defaultAddress(){
+    	$(".defaultAddress").toggleClass("defaultAddress01");
+    	$(".defaultAddress_mark").toggleClass("defaultAddress_mark01");
+    	
+    }
+  </script>
+</body>
+
+</html>

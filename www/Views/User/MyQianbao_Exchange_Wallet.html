@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>转账</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+body{
+	background-color: white;
+}
+</style>
+</head>
+<body>
+<div id="exchange-wallet-main" v-cloak  class="exchange-wallet-main">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">转账</h1>	    
+	</header>
+	<div>
+		<div class="amount">
+				账户余额: {{amount}}元
+		</div>
+		<div class="wallet_main_input">
+			<p class="exchange-wallet-main-chuandan">收款账户</p>
+			<div>
+			<input class="exchange-wallet-main-input" type="number" @input="inputMaxLenth()" v-model="walletInfo.reviceMobile" placeholder="请输入对方手机号码">
+			</div>
+		</div>
+		<div class="wallet_main_input">
+			<p class="exchange-wallet-main-chuandan">转账金额</p>
+			<div>
+			<input class="exchange-wallet-main-input" @focus="clearZero" type="number" v-model="walletInfo.wallet" placeholder="请输入转账金额">
+			</div>
+		</div>
+	</div>
+	<button class="loto_go buy-confirm" style="margin-top: 40px;">转账</button>
+	
+	<!--密码输入-->
+		<div class="common-part pay-part">
+	        <div class="common-dialog pay-dialog" style="height: 350px;">
+				
+	        	<div class="clearfix">
+	        	
+	        		<div class="dialog-title">确认转账信息</div>
+	        	</div>
+	            
+	           <div class="exchange-wallet-main-pay-money">收款人: {{walletInfo.reviceMobile}}</div>
+			   <div class="exchange-wallet-main-pay-money">转账金额: {{walletInfo.wallet}}</div>
+			   <div class="exchange-wallet-main-pay-money">请输入密码</div>
+	            <div class="pay-password" style="margin: 15px auto">
+	                <input type="password" v-model="payPassword" maxlength="6" class="real-ipt">
+	                <div class="surface-ipts">
+	                    <div class="surface-ipt">
+	                        <input type="password" >
+	                        <input type="password" >
+	                        <input type="password" >
+	                        <input type="password" >
+	                        <input type="password" >
+	                        <input type="password" >
+	                    </div>
+	                </div>
+					
+	            </div>
+				<div id="showSetting" style="display: none;" @click="goSettingPayWord()">未设置支付密码，<a>去设置</a></div>
+	            <div class="btns">
+	                <button class="exchange-wallet-main-cancel-btn">取消</button>
+	                <button class="exchange-wallet-main-confirm-btn">确认转账</button>
+	            </div>
+	        </div>
+	    </div>
+	<!--end密码输入--> 
+		<div class="overFlowDiv"></div>	
+
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/qianbaoExchangeWallet.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的订单</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div class="pay">
+	<header class="nav">
+		<a></a>
+		<a onclick="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">我的订单</h1>	    
+	</header>
+	
+	<img id="st" src="../../img/img_done@2x.png" />
+	<h1 id="stTitle">支付成功</h1>
+	<p id="stremark">可至我的订单界面查看订单动态</p>
+	<div id="target"><a>查看订单</a></div>
+	
+
+
+</div>
+</body>
+<script src="../../js/base.js"></script>
+<script>
+	var st = $.urlParam("st");
+	var errmsg = $.urlParam("errmsg");
+	var orderId = $.urlParam("orderId");
+	switch(st) {
+		case 's':
+			//支付成功
+			$("#target>a").attr("href","orderDetail.html?orderId="+orderId+"&url=User.html");
+			break;
+		case 'qbf':
+			//余额不足
+			$("#st").attr("src","../../img/img_done@2x(2).png");
+			$("#stTitle").text("支付失败");
+			$("#stremark").text('平台余额不足，请进入充值中心进行充值');
+			$("#target").html("<a href='MyQianbao_congzhi.html?url=User.html'>进行充值</a>");
+			break;
+		case 'kcf':
+			//库存不足
+			$("#st").attr("src","../../img/img_done@2x(2).png");
+			$("#stTitle").text("支付失败");
+			$("#stremark").text('商品库存不足，请静候商品补充库存后选购');
+			$("#target").html("<a href='../Mall/Mall.html'>确定</a>");
+			break;
+		default:
+			//其他失败原因
+			$("#st").attr("src","../../img/img_done@2x(2).png");
+			$("#stTitle").text("支付失败");
+			$("#target>a").attr("href","orderDetail.html?orderId="+orderId+"&url=User.html");
+			break;
+	}
+	function goBack(){
+		history.back()
+		//window.location.href="../Mall/IntelligentDecoder.html";
+	}
+</script>
+</html>

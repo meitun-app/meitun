@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>个人信息</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/mui.min.js"></script>
+    
+    
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+	<link href="../../css/mui.picker.min.css" rel="stylesheet"/>
+<style>
+
+
+</style>
+</head>
+<body>
+<div id="gerenxx-main"  class="SmartCommunity_newAddress body_bottom_50">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">个人信息</h1>
+	</header>
+	<div class="grxx_cent">
+		<li><a>
+			<p>头像</p>
+			<div class="touxiang" @click="choose">
+				<img :src="userInfo.avatar" />
+				<img src="../../img/icon/RightArrow@2x@2x.png" />
+			</div>
+		</a></li>
+		<li><a href="Gerenxinxi_info.html?t=0">
+			<p>名字</p>
+			<span>{{userInfo.nickname}}</span>
+		</a></li>
+		<li @click="gender"><a>
+			<p>性别</p>
+				<div class="touxiang">
+					<span>{{userInfo.gender == 1?"男":userInfo.gender == 2?"女":'保密'}}</span>
+					<img src="../../img/icon/RightArrow@2x@2x.png" />
+				</div>
+			</a>
+		</li>
+		<li><a href="Gerenxinxi_info.html?t=1">
+			<p>年龄</p>
+			<div class="touxiang">
+				<span>{{userInfo.age}}</span>
+				<img src="../../img/icon/RightArrow@2x@2x.png" />
+			</div>
+		</a></li>
+	</div>
+
+<div class="overFlowDiv"></div>
+<!-- <div class="gender">
+	<li>
+		<span>关闭</span>
+		<span>完成</span>
+	</li>
+	<p>男</p>
+	<p>女</p>
+</div> -->
+</div>
+ 
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/mui.picker.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/gerenxinxi.js"></script>
+
+</body>
+</html>

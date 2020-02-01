@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的星粉团</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="fentuan-main" v-clock class="Myxingfentuan">
+	<div class="orderFukuan">
+		<header class="nav nav_wu">
+			<a></a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrowbai@2x.png" /></a>		
+		    <h1 class="title">我的星粉团</h1>
+		</header>
+		<div class="info">
+			<div>
+				星粉团等级{{index.starLevel}}			
+			</div>
+			<div>
+				<template v-for="item in levelStar">
+						<img src="../../img/icon/xingfentuan@2x.png" />
+				</template>
+			
+			</div>
+		</div>
+	</div>
+	<div class="myjifenbox">
+		<div class="myjifenboxFirst">
+			<div>
+				<p><a href="#" >星粉</a></p>
+				<p><a href="#">{{index.starFanNum}}</a></p>
+			</div>
+			<div style="border: 1px solid #EEEEEE; width: 1px;height: 20px;"></div>
+			<div>
+				<p><a href="#">粉丝团</a></p>
+				<p><a href="#">{{index.starTeamNum}}</a></p>
+			</div>
+			<div style="border: 1px solid #EEEEEE; width: 1px;height: 20px;"></div>
+			<div>
+				<p><a href="#">设备</a></p>
+				<p><a href="#">{{index.deviceNum}}</a></p>
+			</div>
+			<div style="border: 1px solid #EEEEEE; width: 1px;height: 20px;"></div>
+			<div>
+					<p><a href="#">礼包</a></p>
+					<p><a href="#">{{index.giftNum}}</a></p>
+				</div>
+		</div>
+		<div class="myxingjiedian_tabl">
+			<div id="pullrefresh"> 
+			<div class="mui-scroll">
+			<template v-for="item in refferList">
+				<div class="alert_info_column">			
+				<div>
+					<p><img :src="item.avatar" /></p>
+					<div>
+						<p>{{item.mobile}}</p>
+						<p>{{item.registerTime}}</p>
+					</div>
+				</div>
+				<div class="alert_info_xing">
+					<template v-for="starItem in starLevelFun(item.starLevel)">
+						<img src="../../img/icon/xingxing@2x.png" />
+					</template>
+				<!-- 	
+					<img src="../../img/icon/xingxing@2x.png" />
+					<img src="../../img/icon/xingxing@2x.png" />
+					<img src="../../img/icon/xingxing@2x.png" /> -->
+				</div>
+			</div>
+			</template>
+			</div>
+			</div>
+		</div>
+		<!-- <div id="pullrefresh" class="mui-content mui-scroll-wrapper"> -->
+	</div>
+	
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/fentuan.js"></script>
+</body>
+
+
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>订单详情</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="orderDetail-main" v-clock class="user">
+
+	<div class="orderFukuan">
+		<header class="nav nav_wu">
+			<a></a>
+			<a @click="goBack"><img src="../../img/icon/LeftArrowbai@2x.png" /></a>		
+		    <h1 class="title">订单详情</h1>
+		</header>
+		
+		<div v-show="isCancel"  class="inf">
+			<h3>取消订单</h3>
+			<p>订单已取消，可在商城继购买</p>
+		</div>
+		
+		<div v-show="Paid" class="inf">
+			<h3>待发货</h3>
+			<p>商品已准备打包了，请您耐心等待</p>
+		</div>
+		<div v-show="UnPaid" class="inf">
+			<h3>等待买家付款</h3>
+			<p>交易还有24小时关闭</p>
+		</div>
+		
+		<div v-show="Complete" class="inf">
+			<h3>已完成</h3>
+			<p>已完成本次交易，期待您下次光临</p>
+		</div>
+		<div v-show="Send"  class="inf">
+			<h3>已发货</h3>
+			<p>商品已经发出，请您耐心等待</p>
+		</div>
+	</div>
+	<div class="list">
+		<div class="AiPartner_Address">
+			<div class="AiPartner_Name">
+				<p class="AiPartner_Surname_Name_">{{orderInfo.consignee}}</p>
+				<p class="AiPartner_Name_Tel">{{orderInfo.mobile}}</p>
+			</div>
+			<div class="AiPartner_ClosedAddress">
+				<div>
+					<img src="../../img/icon/img_done@2x(1).png" />
+					<p>收货地址：{{orderInfo.province}}{{orderInfo.city}}{{orderInfo.district}}{{orderInfo.address}}</p>
+				</div>
+				
+			</div>
+		</div>
+		<template v-for="item in orderGoods">
+			<div class="AiPartner_AI">
+			<img :src="item.list_pic_url"/>
+			<div class="AiPartner_AiText">
+				<h2 class="AiPartner_AiText_title">{{item.goods_name}}</h2>
+				<template v-for="spec in item.attributeVos">
+					<div>
+						<p class="AiPartner_AiText_describe">{{spec.name}}</p>
+						<span>{{spec.value}}</span>
+					</div>
+				</template>
+				
+				<!-- 
+				<div>
+					<p class="AiPartner_AiText_describe">能源规格</p>
+					<span>电能</span>
+				</div> -->
+				<p><span>￥{{item.retail_price}}</span>x{{item.number}} </p>			
+			</div>
+		</div>
+		</template>
+		
+		<div class="payment">
+			<p>需支付<span>￥<span>{{orderInfo.actual_price}}</span></span></p>
+		</div>
+		<div class="time">
+			<p><span>订单编号：</span>{{orderInfo.order_sn}}</p>
+			<p><span>创建时间：</span>{{orderInfo.add_time}}</p>
+		
+			<p v-show="showPaidTime"><span>付款时间：</span>{{orderInfo.pay_time}}</p>
+			<p v-show="showSendTime"><span>发货时间：</span>{{orderInfo.send_time}}</p>
+			<p v-show="showCompleteTime"><span>完成时间：</span>{{orderInfo.confirm_time}}</p>
+		</div>
+	</div>
+	<div class="bottom_fix">
+		<p v-show="UnPaid"><a @click="cancelOrder(orderInfo.id)">取消订单</a></p>
+		<span  v-show="UnPaid" @click="toPay()"><a>付款</a></span>
+		
+		<p v-show="Send"><a @click="goTrack(orderInfo.id)">查看物流</a></p>
+		<span v-show="Send"><a @click="confirmOrder(orderInfo.id)">确认收货</a></span>
+		
+		
+		<span v-show="Paid" style="width: 100%;" onClick="ShowAPromptMessage('已经提醒商家发货，请您耐心等待')"><a>提醒发货</a></span>
+		<span v-show="isCancel || Complete" style="width: 100%;" @click="deleteOrder(orderInfo.id)"><a>删除订单</a></span>		
+	</div>
+	
+	
+	<!--覆盖框-->
+<!--密码输入-->
+	<div class="common-part pay-part">
+        <div class="common-dialog pay-dialog">
+        	<div class="clearfix">
+        		<div class="del"><img src="../../img/icon/Del.png" /></div>
+        		<div class="dialog-title">请输入支付密码</div>
+        	</div>
+            
+<!--            <div class="pay-money">$10000.00</div>-->
+            <div class="pay-password">
+                <input @keyup="checkNumberLen()" type="password" v-model="payPassword" maxlength="7" class="real-ipt">
+                <div class="surface-ipts">
+                    <div class="surface-ipt">
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                    </div>
+                </div>
+            </div>
+			<div id="showSetting" style="display: none;" @click="goSettingPayWord()">未设置支付密码，<a>去设置</a></div>
+            <!--<div class="btns">
+                <button class="cancel-btn">取消</button>
+                <button class="confirm-btn">付款</button>
+            </div>-->
+        </div>
+    </div>
+<!--end密码输入--> 
+	<div class="overFlowDiv"></div>
+	
+</div>
+
+</body> 
+<script>
+function ShowAPromptMessage(msg) {   
+	var message = $("#ShowAPromptMessage");  
+	if (message == null || message.length == 0) {
+	        $("body").append('<div id="ShowAPromptMessage"><span></span></div>');        
+			message = $("#ShowAPromptMessage");
+	    }
+	message.find("span").html(msg);  
+	message.show();   
+	setTimeout('$("#ShowAPromptMessage").hide();', 3 * 1000);  //提示信息显示时间
+}	
+</script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/orderDetail.js"></script>
+</html>

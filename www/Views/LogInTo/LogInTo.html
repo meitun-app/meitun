@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>密码登入</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+	html{
+		font-size: 13.3333333vw;
+	}
+html,body,#login-main{
+	height: 100%;
+}
+#login-main{
+	position: relative;
+}
+#cover{
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.5);
+	z-index: 999;
+	display: none;
+}
+.coverbox{
+	/* margin-top: 3.31rem; */
+	margin: 3.14rem auto 0;
+	width: 6.14rem;
+	height: 6.74rem;
+	border-radius:0.2rem;
+	background-color: #fff;
+	position: relative;
+}
+.coverbox .bg img{
+	width:100% ;
+}
+.coverbox .bottom{
+	padding:  0 .5rem;
+}
+.coverbox p{
+	font-size:.3rem;
+	line-height:0.42rem;
+	color:rgba(51,51,51,1);
+	padding: .56rem 0 .48rem;
+}
+#close{
+	width: .44rem;
+	height: .44rem;
+	position: absolute;
+	top:.4rem;
+	right:.4rem;
+
+}
+button{
+	font-size:.32rem;
+	line-height:0.86rem;
+	background-color: #2F82FF;
+	border-radius:.43rem;
+	width: 100%;
+	border:none;
+	outline: none;
+	color:#fff;
+}
+</style>
+</head>
+<body>
+<div id="login-main" v-cloak  class="loto">
+	<div id="cover">
+		<div class="coverbox">
+			<img src="../../img/icon_close.png" alt="" id="close">
+			<div class="bg">
+					<img src="../../img/pdate.png" alt="">
+			</div>
+			<div class="bottom">
+					<p>发现新版本，历史版本将不再支持，请立即更新！</p>
+					<button id="sure">立即更新</button>
+			</div>
+			
+		</div>
+	</div>
+	<div class="orderFukuan">
+	</div>
+	<div class="pos_r">
+		<div class="phone">
+			<img src="../../img/icon/register_icon_phone@2x.png" />
+			<input id="test"  type="number" name="test" @input="inputMaxLenth()"  v-model="mobile" @focus="clean" placeholder="请输入手机号">
+		</div>
+		<div class="mima clearfix">
+			<li class="phones">
+				<img src="../../img/icon/register_icon_password@2x.png" />
+				<input type="password"  class="secret" v-model="password" @focus="clean" placeholder="请输入密码">
+			</li>			
+			<li class="eyes">
+			    <img class="secreteyes" src="../../img/icon/app_icon_openeye1@2x.png" alt=""> 
+			    <img class="secreteyesk none" src="../../img/icon/app_icon_openeye@2x.png" alt="">
+			</li>
+		</div>
+		<div class="loto_tab">
+			<p id="error"></p>
+			<a href="LogInTo_yanzhengma.html">切换至验证码登录</a>
+		</div>
+		<button class="loto_go" @click="loginFun()">登录</button>
+		<div class="registered_password">
+			<a href="Registered.html">注册账号</a>
+			<a href="ForgotPassword.html">忘记密码</a>
+		</div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/loginTo/loginTo.js"></script>
+<script>
+	var a = 0;
+$('.eyes').click(function(){
+	a += 1;
+	if(a%2 == 0){
+		$('.secreteyesk').addClass('none');
+		$('.secreteyes').removeClass('none');
+		$('.secret').prop('type','password');
+	}else if(a%2 != 0){
+		$('.secreteyes').addClass('none');
+		$('.secreteyesk').removeClass('none');
+		$('.secret').prop('type','text');
+	}
+})
+
+// function xzc(){
+// 	var x = $(" input[ name='test' ] ").val();
+// 	console.log(x);
+// }
+// xzc();
+
+function svn(t) {
+			this.versions = plus.runtime.version
+			var xhr_svn = new plus.net.XMLHttpRequest()
+			let platform = 1
+			var ua = navigator.userAgent.toLowerCase()
+			if (/iphone|ipad|ipod/.test(ua)) {
+				platform = 2
+			}
+			xhr_svn.onreadystatechange = function() {
+			  if (xhr_svn.readyState === 4) {
+				if (xhr_svn.status === 200) {
+				  var res = JSON.parse(xhr_svn.responseText)
+				  if (res.errno == 0) {
+					if (res.data.version !== t) {
+						$('#cover').show()
+					  if (/iphone|ipad|ipod/.test(ua)) {
+						$('#sure')[0].onclick=()=>{
+							//location.href = 'https://appfront.meitun.ai/page/html/download-star.html'
+							plus.runtime.launchApplication( {action:"https://appfront.meitun.ai/page/html/download-star.html"}, function ( e ) {
+                              alert( "Open system default browser failed: " + e.message );
+                            } );
+						}
+					  } else {
+						var upr
+						$('#sure')[0].onclick=()=>{
+							$('#cover').hide()
+							var wt = plus.nativeUI.showWaiting('下载更新中，请勿关闭')
+							plus.qinglian.getDownloadApkUrl();
+							var url = res.data.download_path 
+							var dtask = plus.downloader.createDownload(url, {}, function(d, status) {
+							  if (status === 200) { // 下载成功
+								var path = d.filename
+								// plus.runtime.install(path)
+								plus.qinglian.apkInstall(path);
+							  } else { // 下载失败
+								alert('下载失败: ' + status)
+							  }
+							})
+							dtask.start()
+						}
+					  }
+					} else {
+					  console.log('最新')
+					}
+				  }
+				} else {
+				  plus.nativeUI.toast('网络连接错误！')
+				}
+			  }
+			}
+			xhr_svn.open('POST', $.apiUrl + '/api/version/query?platform='+platform)
+			xhr_svn.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr_svn.send(null)
+		  }
+
+		  mui.plusReady(()=>{
+			svn(plus.runtime.version)
+			})
+			//$('#cover').
+			$('#close').click(()=>{
+				plus.runtime.quit()
+			})
+		
+</script>
+<script src="../../js/nativity/test.js"></script>
+<script src="../../js/base.js"></script>
+</body>
+</html>

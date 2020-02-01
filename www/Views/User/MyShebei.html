@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的设备</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/mui.min.js"></script>
+    
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div id="myshebei-main"  class="MyShebei">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">我的设备</h1>	    
+	</header>
+	<div class="MyShebei_list">
+		<h1>当前绑定<span>{{totalNum}}</span>套</h1>
+		<ul id="OA_task_2" class="mui-table-view">	
+			<template v-for="item in sheBeiList">
+			<li class="mui-table-view-cell">
+				<div class="mui-slider-right mui-disabled">
+					<a class="mui-btn mui-btn-yellow mm" @click="mm(item.id)">重命名</a>
+					<!-- <a class="mui-btn mui-btn-red" @click="deleteBtn(item.id)">删除</a> -->
+				</div>
+				<div class="mui-slider-handle">
+					<div class="mui-table-cell">
+						<img src="../../img/icon/hulian@2x.png" />
+						<div class="MyShebei_list_info" @click="godetail(item.id)">
+							<p>
+								{{item.name}}
+							</p>
+							<ul>
+								<li><span>设备编号：</span><p>{{item.deviceNo}}</p></li>
+								<li><img src="../../img/icon/wifi@2x.png"/><span class="lianjie">{{item.isWifi==1?'设备已连接':'设备未连接'}}</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</li>
+			</template>
+		<ul/>
+	</div>
+	<div class="jiashebei" @click="goAddSheBei()">
+		<img src="../../img/Activity/tiajia@2x.png" />
+		<p>添加设备</p>
+	</div>
+	<div class="overFlowDiv" style=""></div>
+	<div class="cmm">
+		<input type="text" v-model="deviceName" placeholder="魅豚空气净化器" />
+		<div class="jyfb">
+			<span class="qx">取消</span>
+			<span class="qd" @click="rename()">确定</span>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+	$(".qx,.qd").click(function(){
+		$(".overFlowDiv,.cmm").hide();
+	})
+</script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/myshebei.js"></script>
+</html>

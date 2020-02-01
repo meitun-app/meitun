@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的积分</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div class="myjifen">
+	<div class="orderFukuan">
+		<header class="nav nav_wu">
+			<a href="MyJifen_mingxi.html">积分明细</a>
+			<a href="javascript:history.back(-1)"><img src="../../img/icon/LeftArrowbai@2x.png" /></a>		
+		    <h1 class="title">我的积分</h1>
+		    
+		</header>
+		<div class="info">
+			<div onclick="kaiguan()" >
+				<span>可用积分</span>
+				<img id="switchs" src="../../img/icon/jifenkejian@2x.png" />
+			</div>
+			<p class="jifenjifen">888</p>
+		</div>
+	</div>
+	<div class="myjifenbox">
+		<div class="userBoxFirst">
+			<div>
+				<p><a href="#">累计收益</a></p>
+				<p><a href="#">1245</a></p>
+			</div>
+			<div>
+				<p><a href="#">昨日收益</a></p>
+				<p><a href="#">3254</a></p>
+			</div>
+		</div>
+		<div class="myjifen_tabl">
+			<h1>积分收益报表</h1>
+			<div>
+				<table style="width: 100%; ">
+				    <tr style="width: 100%;color: #999999;font-size: 12px;border-bottom: 1px solid #f0f0f0;">
+				        <td style="width: 30%;">日期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				        <td style="width: 25%;" colspan="2">收益&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				        <td style="width: 25%;"colspan="2">生产积分</td>
+				        <td style="width: 20%;">推广积分</td>			      
+				    </tr>
+				    <tr style="width: 100%;">
+				        <td style="width: 30%; color: #999999;font-size: 12px;">2019.5.10</td>
+				        <td style="width: 20%; color: #FF5400;">900</td>
+				        <td style="width: 5%;">=</td>
+				        <td style="width: 20%;">800</td>
+				        <td style="width: 5%;">+</td>
+				        <td style="width: 20%;">100</td>	
+				    </tr>
+				    <tr style="width: 100%;">
+				        <td style="width: 30%; color: #999999;font-size: 12px;">2019.5.10</td>
+				        <td style="width: 20%; color: #FF5400;">900</td>
+				        <td style="width: 5%;">=</td>
+				        <td style="width: 20%;">800</td>
+				        <td style="width: 5%;">+</td>
+				        <td style="width: 20%;">100</td>	
+				    </tr>
+				    <tr style="width: 100%;">
+				        <td style="width: 30%; color: #999999;font-size: 12px;">2019.5.10</td>
+				        <td style="width: 20%; color: #FF5400;">900</td>
+				        <td style="width: 5%;">=</td>
+				        <td style="width: 20%;">800</td>
+				        <td style="width: 5%;">+</td>
+				        <td style="width: 20%;">100</td>	
+				    </tr>
+				    <tr style="width: 100%;">
+				        <td style="width: 30%; color: #999999;font-size: 12px;">2019.5.10</td>
+				        <td style="width: 20%; color: #FF5400;">900</td>
+				        <td style="width: 5%;">=</td>
+				        <td style="width: 20%;">800</td>
+				        <td style="width: 5%;">+</td>
+				        <td style="width: 20%;">100</td>	
+				    </tr>
+				    <tr style="width: 100%;">
+				        <td style="width: 30%; color: #999999;font-size: 12px;">2019.5.10</td>
+				        <td style="width: 20%; color: #FF5400;">900</td>
+				        <td style="width: 5%;">=</td>
+				        <td style="width: 20%;">800</td>
+				        <td style="width: 5%;">+</td>
+				        <td style="width: 20%;">100</td>	
+				    </tr>
+				    <tr style="width: 100%;">
+				        <td style="width: 30%; color: #999999;font-size: 12px;">2019.5.10</td>
+				        <td style="width: 20%; color: #FF5400;">900</td>
+				        <td style="width: 5%;">=</td>
+				        <td style="width: 20%;">800</td>
+				        <td style="width: 5%;">+</td>
+				        <td style="width: 20%;">100</td>	
+				    </tr>
+				</table>				
+			</div>
+
+		</div>
+	</div>
+	<div class="zzjfcz clearfix">
+		<span class="zz"><a>转账</a></span>
+		<span class="jfcz"><a>积分充值</a></span>
+	</div>
+</div>
+</body>
+
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+
+//开关
+function kaiguan(){
+	var test1 = document.getElementById('switchs');
+    if(test1.src.indexOf('jifenkejian') >= 0){
+        test1.src="../../img/icon/app_icon_jifen@2x.png";
+        $(".jifenjifen").html("****");
+    }else{
+        test1.src="../../img/icon/jifenkejian@2x.png";
+        $(".jifenjifen").html("888")
+    }
+}
+
+
+</script>
+</html>

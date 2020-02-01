@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+            <title>添加设备</title>
+            <script src="../../js/jquery-3.3.1.min.js"></script>
+            <script src="../../js/bootstrap.min.js"></script>
+            
+            
+            
+            <link href="../../css/bootstrap.css" rel="stylesheet"/>
+            <link href="../../css/style.css" rel="stylesheet"/>
+            <style>
+                
+                
+                </style>
+    </head>
+    <body class="tjsb">
+        <div id="tjsber-main" v-clock  class="tjsb">
+            <header class="nav">
+                <a></a>
+                <a href="javascript:history.back(-1)"><img src="../../img/icon/LeftArrow@2x.png" /></a>
+                <h1 class="title">添加设备</h1>
+            </header>
+            <div class="san_rotate_pic" >
+                <img src="../../img/saomiao.png"  id="pic1"/>
+                <img src="../../img/saomiao.gif" style="display:none;" id="pic2"/>
+            </div>
+            <h4 class="fis">第二步 请激活设备，长按机身后的配网按钮，直到听到"嘀"声 </h4>
+            <div class="pay" >
+                <!--
+                 <img id="st" src="../../img/img_done@2x(2).png" />
+                 <h1 id="stTitle">支付成功</h1>
+                 <p id="stremark">可至我的订单界面查看订单动态</p> -->
+                <template v-if="isCanClick">
+                    <div  @click="starScan3()" ><a>{{btnText}}</a></div>
+                </template>
+                <template v-else>
+                    <div><a>{{btnText}}</a></div>
+                </template>
+                
+                
+            </div>
+            
+        </div>
+        
+        <script src="../../js/mui.min.js"></script>
+        <script src="../../js/vue.min.js"></script>
+        <script src="../../js/nativity/test.js"></script>
+        <script src="../../js/base.js"></script>
+        <script src="../../js/Activity/Tjsber.js"></script>
+    </body>
+    
+</html>
+

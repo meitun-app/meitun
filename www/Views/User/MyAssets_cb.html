@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>STH充币</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/swiper.js"></script>
+    
+    <link href="../../css/swiper.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+body{
+	background-color: white;
+}
+</style>
+</head>
+<body style="height: 100%;">
+<div id="assets-main" v-clock class="myjifen MyAsset_info"  style="height: 100%;">
+	<header class="nav">
+		<a href=""></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">STH充币</h1>		    
+	</header>    
+    <!-- <div id="nav" class="swiper-container">
+        <ul class="swiper-wrapper">
+			<template v-for="(index,item) in coinTypes">
+					<li class="swiper-slide" :class="index == 0?'active-nav':''"><a href="javascript:;">{{item.coinType}}</a></li>
+			</template>
+            
+        </ul>
+    </div> -->
+    <div id="page" class="swiper-container" id="page">
+        <div class="swiper-wrapper">
+			
+				<!--FIL-->
+				<div class="swiper-slide slidepage">
+					<!--内容-->
+					<div class="fil_info fil_cz">
+						<div class="header">
+							<img src="../../img/sth.png">
+							<p>STH</p>
+							</div>
+							<!-- <div class="box" style="width:200px;height:200px;margin:30px auto 20px;">
+								<div id="qrcode"  style="width:200px;height:200px;padding-left: 0;"></div>
+							</div> -->
+							<div id="qrcode"  style="width:200px;height:200px;padding-left: 0;margin:30px auto 20px;"></div>
+							<!-- <img  class="QR" src="../../img/ppio@2x.png" alt=""> -->
+							<div>
+							<p>{{coinTypes}}</p>
+							<span @click="copyText(coinTypes)"><img src="../../img/copy.png" alt=""></span>
+						</div>
+					</div>
+					<p class="zhuyi">
+						注意：该地址仅支持sth收款，请勿用于其它币种
+					</p>
+					<!--end内容-->
+				
+				</div>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="../../js/jquery.qrcode.min.js"></script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/myassetsCb.js"></script>
+<script type="text/javascript">
+
+</script>
+</html>

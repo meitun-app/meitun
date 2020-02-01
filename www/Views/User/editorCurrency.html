@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+			<a></a>
+    <title>添加联系人</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/mui.min.js"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+    <link href="../../css/mui.picker.min.css" rel="stylesheet"/>
+<style>
+.aui-address-cell-item .aui-cell-input{
+    position: relative;
+}
+
+.aui-address-cell-item .aui-cell-input span{
+    position: absolute;
+    left: 20px;
+}
+body,html{
+    height: 100%;
+   
+}
+.aui-scrollView{
+    background-color:#fff ;
+}
+
+</style>
+</head>
+<body>
+
+<div id="editaddress-main" v-clock  class="SmartCommunity_newAddress body_bottom_50">
+	<header class="nav">
+			<a></a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+		    <h1 class="title">{{id > 0?'修改联系人':'添加联系人'}}</h1>
+		    <!--<div class="newAddress"><a @click="goDetail(0)"></a></div>-->
+		</header>
+	<section class="aui-flexView">
+        <section class="aui-scrollView">
+            <div class="aui-address-box">
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">姓名：</div>
+                    <div class="aui-cell-input">
+                        <input type="text" v-model="detail.userName" class="cell-input" placeholder="请输入联系人姓名" autocomplete="off" maxlength="12">
+                    </div>
+                </div>
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">备注：</div>
+                    <div class="aui-cell-input">
+                            <input type="text" v-model="detail.remark" class="cell-input"  placeholder="请填写备注" autocomplete="off">
+                    </div>
+                </div>
+            
+                <!-- <div @click="checkoutCurrency" class="aui-address-cell-item">
+                    <div class="aui-cell-name">选择币种：</div>
+                        <div class=" aui-cell-input cell-input-text">
+                            <span>{{detail.currency}}</span>
+                        </div>
+                    </a>
+                </div> -->
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">收币地址</div>
+                    <div class="aui-cell-input">
+                        <input type="text" class="cell-input"  v-model="detail.detailInfo"  placeholder="请输入对方的收币地址" autocomplete="off">
+                    </div>
+                </div>
+              
+            </div>
+        </section>
+    </section>
+		<div class="SaveAddress"  @click="saveAddress()" >
+			保存
+        </div>
+        <div v-if="id!=0" class="SaveAddress"  @click="deleteAddress()" style="background: #CCCCCC;">
+			删除
+		</div>
+	<!-- <template v-else>
+		<div class="deleteSaveAddress" >
+			<p  class="deleteAddress" @click="deleteAddress()">删除</p>
+			<p class="saveAddress" @click="saveAddress()" >
+			保存
+			</p>
+		</div>
+	</template> -->
+	
+
+
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/mui.picker.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/address.js"></script>
+<script src="../../js/city.js"></script>
+<script src="../../js/user/editorCurrency.js"></script>
+	
+	
+<script type="text/javascript">
+    /**
+     * 默认调用
+     */
+//     !function() {
+//         var $target = $('#J_Address');
+// 
+//         $target.citySelect();
+// 
+//         $target.on('click', function(event) {
+//             event.stopPropagation();
+//             $target.citySelect('open');
+//         });
+// 
+//         $target.on('done.ydui.cityselect', function(ret) {
+//             $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+//         });
+//     }();
+    /**
+     * 设置默认值
+     */
+    // function defaultAddress(){
+    // 	var test1 = document.getElementById('moren');
+	   //  if(test1.src.indexOf('Shape') >= 0){
+	   //      test1.src="../../img/icon/huisedagou@2x(2).png";
+	   //  }else{
+	   //      test1.src="../../img/icon/Shape@2x(2).png";
+	   //  }
+    	
+    // }
+    
+</script>
+<script>
+	const h = document.body.scrollHeight  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
+	window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
+	  if (document.body.scrollHeight < h) {
+	    document.body.style.height = h
+	  }
+	}
+</script>
+</body>
+</html>

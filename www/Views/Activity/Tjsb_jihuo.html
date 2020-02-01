@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>添加设备</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div id="tjsbjh-main" class="tjsb_jihuo MyQianbao_tixian">
+	<header class="nav ">
+		<a></a>
+		<a href="javascript:history.back(-1)"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">添加设备</h1>
+	</header>
+	<template v-for="item in devices">
+		
+		<div class="zhihang">	
+			<li>
+				<img src="../../img/icon/hulian@2x.png" />
+				<div>
+					<h3>魅豚空气净化器</h3>
+					<p>设备mac地址：<span>{{item.deviceMac}}</span></p>
+				</div>			
+			</li>
+			<div class="xzyhk_gou"><img src="../../img/icon/Shape@2x.png" /></div>
+		</div>
+	</template>
+
+	<div class="tijiao" @click="bindDevice()">绑定设备</div>
+</div>
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/Activity/tjsbJihuo.js"></script>
+</body>
+</html>

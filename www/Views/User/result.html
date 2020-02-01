@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的订单</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div class="pay">
+	<header class="nav">
+		<a></a>
+		<a href="javascript:history.back(-1)"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">我的银行卡</h1>	    
+	</header>
+	
+	<img id="st" src="../../img/img_done@2x.png" />
+	<h1 id="stTitle">添加成功</h1>
+	<p id="stremark">可至银行卡界面查看</p>
+	<div id="target"><a>完成</a></div>
+</div>
+<script src="../../js/base.js"></script>
+<script>
+	var t = $.urlParam("t") || 0;
+	$("#target > a").attr("href","Shezhi_yinhangka.html?t="+t);
+</script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>收货地址管理</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+
+
+</style>
+</head>
+<body>
+
+<div id="address-main" v-cloak class="SmartCommunity_Address body_bottom_50">
+		<header class="nav" >
+			<a @click="goDetail(0)">添加收货地址</a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+		    <h1 class="title">收货地址管理</h1>
+		    <!--<div class="newAddress"><a @click="goDetail(0)"></a></div>-->
+		</header>
+		<template v-if="addressList.length == 0">
+			<img class="kong" src="../../img/dizhiqueshao@2x.png" />
+		</template>		
+		
+		<template v-else>
+			<template v-for="item in addressList">
+				<div class="Address" id="{{item.id}}">
+					<div class="AddressTnformation" @click="chooseAddress(item.id)">
+						
+						<div class="AddressTnformation_NamTelSta">
+							<h1>{{item.userName}}</h1>
+							<p>{{item.telNumber}}</p>
+							<span v-if="item.isDefault == 1">默认</span>
+						</div>
+						<p class="Address_detail">{{item.fullRegion}} {{item.detailInfo}}</p>
+					</div>
+					<p class="Address_editor"><a @click="goDetail(item.id)"><img src="../../img/icon/fengexian@2x (2).png" /></a></p>
+				</div>			
+			</template>	
+		</template>
+		
+	
+</div>
+
+<script type="text/javascript">
+// $(".Address").click(function(){
+// 	$(this).css("border","1px solid #3399FF");
+// 	$(this).siblings().css("border","0");
+// })
+// 兼容Android 键盘弹起时，把确认订单弹窗顶上去影响布局
+const h = document.body.scrollHeight  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
+window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
+  if (document.body.scrollHeight < h) {
+    document.body.style.height = h
+  }
+}
+</script>
+<!-- <script src="../js/js/address.js"></script> -->
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/address.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>充币</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/swiper.js"></script>
+    
+    <link href="../../css/swiper.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+body{
+	background-color: white;
+}
+</style>
+</head>
+<body>
+<div id="assets-main" v-clock class="myjifen">
+	<header class="nav">
+		<a href=""></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">充币</h1>		    
+	</header>    
+    <div id="nav" class="swiper-container">
+        <ul class="swiper-wrapper">
+			<template v-for="(index,item) in coinTypes">
+					<li class="swiper-slide" :class="index == 0?'active-nav':''"><a href="javascript:;">{{item.coinType}}</a></li>
+			</template>
+            
+        </ul>
+    </div>
+    <div id="page" class="swiper-container" id="page">
+        <div class="swiper-wrapper">
+			
+			<template v-for="item in coinTypes">
+				<!--FIL-->
+				<div class="swiper-slide slidepage">
+					<!--内容-->
+					<div class="fil_info fil_cz">
+						<p>{{item.coinType}}充值地址</p>
+						<div>
+							<p>{{item.path}}</p>
+							<span @click="copyText(item.path)">复制</span>
+						</div>
+					</div>
+					<div class="fil_info fil_cz">
+						<p>备注码</p>
+						<div>
+							<p>{{item.coinType}} {{mobile}}</p>
+							<span @click="copyText(item.coinType+' '+mobile)">复制</span>
+						</div>
+					</div>
+					<div class="fil_info fil_cz">
+						<p>充币数量</p>
+						<div>
+							<p>
+								<input style="margin:0;padding:0;width: 100%;" type="number" v-model="detail.coinNum" placeholder="请输入充币数量"/>
+							</p>
+							
+							
+						</div>
+					</div>
+					<div class="fil_info fil_cz">
+						<p>我的钱包</p>
+						<div>
+							<p>
+								<input style="margin:0;padding:0;width: 100%;" type="text" v-model="detail.fromWalletAddr" placeholder="我的钱包地址"/>
+							</p>
+						</div>
+					</div>
+					<div class="fil_info fil_cz">
+						<p>充币时间</p>
+						<div>
+							<p>
+								<input style="margin:0;padding:0;width: 100%;" type="date" v-model="detail.rechargeTime" placeholder="充币时间"/>
+							</p>
+						</div>
+					</div>
+					<div class="fil_info fil_cz">
+						<p>充币人</p>
+						<div>
+							<p>
+								<input style="margin:0;padding:0;width: 100%;" type="text" v-model="detail.rechargeName" placeholder="充币人"/>
+							</p>
+						</div>
+					</div>
+					
+					<div class="MyQianbao_congzhi_input">
+						<p style="color: #333333;font-size: 14px;">充币截图</p>
+						<div style="margin: 10px 0;padding: 15px 10px;">
+							<template v-if="detail.img !=''">
+							<div>
+								<img :src="detail.img" />
+							</div>
+							</template>
+						
+							<p @click="choose()">+</p>
+						</div>
+					</div>
+					<p class="zhuyi">
+						温馨提示：
+						<br /> 1.请不要在备注中输入除备注码以外的信息，否则可能导致无法到账 
+						<br />2.因地址输入错误导致的提币错误我们无法找回，请谨慎填写！
+					</p>
+					<!--end内容-->
+					<div class="bottom_fix" style="position:relative;z-index:0;" @click="submit">
+						<span style="width: 100%;"><a>提交</a></span>			
+					</div>
+				</div>
+			</template>
+        </div>
+    </div>
+
+</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/myassetsCb.js"></script>
+
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+
+//点击全部赎回
+function aiishouhui(){
+	$(".overFlowDiv,.shouhui").show();
+}
+$(".quxiao,.shouHui").click(function(){
+	$(".overFlowDiv,.shouhui").hide();
+})
+</script>
+<script type="text/javascript">
+
+</script>
+</html>

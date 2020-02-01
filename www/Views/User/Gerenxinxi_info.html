@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>更改名字</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+
+</head>
+<body>
+<div id="info-main" v-clock class="name">
+	<template v-if="showName">
+		<header class="nav">
+			<a @click="save()">保存</a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+			<h1 class="title">更改名字</h1>
+		</header>
+		<div class="name_in">
+			<input v-model="name" placeholder="请输入你的名字" />
+		</div>
+		<p class="prompt">好名字可以让你朋友记住你</p>
+	</template>
+	
+	<template v-if="showAge">
+		<header class="nav">
+			<a @click="save()">保存</a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+			<h1 class="title">更改年龄</h1>
+		</header>
+		<div class="name_in">
+			<input v-model="age" placeholder="请输入你的年龄" />
+		</div>
+		<p class="prompt">正确的年龄</p>
+	</template>
+	
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/userInfo.js"></script>
+
+</body>
+</html>

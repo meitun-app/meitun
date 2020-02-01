@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>问题与建议</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/mui.min.js"></script>
+    
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div id="fankuijianyi-main" v-clock class="FankuiJianyi">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">问题与建议</h1>	    
+	</header>
+	<div class="feedback_type">
+		<select v-model="detail.typeValue">
+			<option value="0">请选择</option>
+			<template v-for="item in type">
+				<option value="{{item.id}}">{{item.typeName}}</option>			
+			</template>
+		
+		</select>
+		<select v-model="detail.cycleValue"> 
+		
+			<option value="0">请选择</option>
+			<template v-for="item in cycle">
+				<option value="{{item.id}}">{{item.cycleName}}</option>			
+			</template>
+		</select>
+	</div>
+	<div class="FankuiJianyi_input">
+		<textarea v-model="detail.content" cols="50" rows="10" placeholder="请您详细描述问题发生的场景和状态，并添加截图，只有助于我快速解决您的问题"></textarea>
+	</div>
+	<div class="MyQianbao_congzhi_input">
+		<p class="chuandan">添加截图(最多四张)</p>
+		<div>
+			<template v-for="(index,img) in imgs" >
+			<div>
+				<img class="del" @click="deleteImg(index)" src="../../img/icon/Del.png" />
+				<img :src="img" />
+			</div>
+			</template>
+		
+			<p @click="choose()">+</p>
+		</div>
+	</div>
+	<!--<div class="FankuiJianyi_input MyQianbao_congzhi_input">
+		<p>添加截图（最多四张）</p>	
+		<div>+</div>
+	</div>-->
+	<div class="FankuiJianyi_input">
+		<input v-model="detail.linkMethod"  placeholder="请留下您的联系方式（电话或邮箱）"/>
+	</div>
+	<div class="tijiao" @click="save()">提交</div>
+</div>
+</body>
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/aui-slide.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/fankuijianyi.js"></script>
+<script>
+	mui.init({})
+</script>
+</html>

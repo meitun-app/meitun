@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>关于我们</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div class="aboutUser">	
+	<header class="nav">
+		<a></a>
+		<a href="javascript:goBack();"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">关于我们</h1>		    
+	</header>
+	<img src="../../img/img-xingjiedian@2x.png" />
+    <p>魅豚 V1.1.3</p>
+	<div class="bottom_fixd">
+		深圳市星际无限公司<a>服务条款和隐私协议</a>
+	</div>
+</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script>
+	mui.init({})
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+
+function goBack(){
+	window.location.href="User.html";
+}
+</script>
+</html>

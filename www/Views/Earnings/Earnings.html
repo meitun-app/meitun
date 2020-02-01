@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>收益</title>
+    <script src="../../js/jquery-3.3.1.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/swiper.js"></script>
+    
+    <link href="../../css/swiper.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+#gundong {
+background: #FFF;
+overflow:hidden;
+width: 200px;
+font-size: 12px;
+height: 20px;
+line-height: 20px;
+/* padding: 5px; */
+}
+#gundong li {
+background: none;
+padding-right: 10px;
+}
+#gundongAreaMain2 li span{
+	color: #2F82FF;
+	font-weight: bold;
+}
+#gundongAreaMain1 {
+float: left;
+width: 1000%;
+}
+#gundongAreaMain2, #gundongAreaMain3, #gundongAreaMain2 li, #gundongAreaMain3 li {
+float: left;
+}
+#nav{
+	border: none;
+	background-color:transparent ;
+}
+/* #gundongAreaMain3{
+	display: none;
+} */
+</style>
+</head>
+<body>
+<div id="earnings-main" v-clock class="earning body_bottom_x65">
+	<div class="Head">
+		<div id="nav" class="swiper-container ">
+	        <ul class="swiper-wrapper">
+	            <li class="swiper-slide active-nav">资产收益</li>
+	            <li class="swiper-slide">推广收益</li>
+	            <!--<img src="../../img/Earnings/zidongmoshi@2x.png" />-->
+	        </ul>
+	    </div>
+	</div>
+	
+	<div class="sy_zcsyab">
+	<div id="page" class="swiper-container sy_zcsy" id="page">
+        <div class="swiper-wrapper">
+        	<!--FIL-->
+            <div class="swiper-slide slidepage">
+            	<!--内容-->
+				<div class="fil">账户余额<span>{{coinAsset.coin}}</span>{{coinAsset.coinType}}</div>
+				<div class="userBoxFirst">
+					<div>
+						<p><a href="#">累计收益</a></p>
+						<p><a href="#">{{grandTotalIncome}}</a><span>{{coinAsset.coinType}}</span></p>
+					</div>
+					<p></p>
+					<div>
+						
+						<p><a href="#">昨日收益</a></p>
+						<p><a href="#">{{yesterdayIncome}}</a><span>{{coinAsset.coinType}}</span></p>
+					</div>
+				</div>
+				<div class="shezhi_kaInfo">
+					<p class="zcdy">资产抵押</p>
+					<span id="woyadiya"><a>我要抵押</a></span>
+					<template v-if="coinAsset.isPledge == 1">
+						
+						<p class="xingxin"><span>抵押状态</span>抵押{{coinAsset.pledgeSpace}}TB</p>
+					</template>
+					<template v-else>
+						<p class="xingxin">根据分布式存储奖励要求，必须先抵押才可以挖币！</p>
+					</template>
+					
+				</div>
+				
+				<div class="item">
+							<h1>设备收益</h1>
+							<template v-if="deviceList.length == 0">
+								<div class="content01">
+									<a href="../Activity/Tjsbyi.html">
+										<img src="../../img/Activity/tiajia@2x.png" />
+										<p>还没有设备，请添加设备!</p>
+										</a>
+								</div>
+								
+							</template>
+							<template v-else>
+								<template v-for="item in deviceList">
+									<div class="content01 sbsy">
+										<div class="zxlx">
+											<div>
+												<img v-show="item.isOnline==1" src="../../img/icon/hulian@2x.png" />
+												<img v-show="item.isOnline!=1" src="../../img/icon/off.png" />
+												<span>{{item.isOnline == 1?'在线':'离线'}}</span>
+											</div>
+											<p>昨日收益<span>{{item.yesterdayIncome}}</span>{{coinAsset.coinType}}</p>
+										</div>
+										<div class="sbmc">
+											<p>设备名称：<span style="color:#2F82FF;">{{item.name}}</span></p>
+
+										</div>
+										<div class="yp"  style="disply:flex;">
+											<li>
+													<div id="circle" class="circle" style="width:100%;text-align: cnter;background-color:#fff;">		
+															<img v-show="item.isOnline==1" src="../../img/icon/cpu0.png" alt="" style="width: 80px;height: 80px;" class="cpupng">	
+															<img v-show="item.isOnline!=1" src="../../img/icon/cpu0.png" alt="" style="width: 80px;height: 80px;">
+														</div>
+														<p v-show="item.isOnline==1"><span style="color:#333;padding-right: 5px;">CPU</span><span style="color:#999;padding-right: 5px;">已使用<span style="color:#2F82FF;" class="cpurate">0%</span></span>
+															
+														</p>
+														<p v-show="item.isOnline!=1"><span style="color:#333;padding-right: 5px;">CPU</span><span style="color:#999;padding-right: 5px;">已使用<span style="color:#2F82FF;">0%</span></span>
+															
+														</p>
+											</li>
+											<li>
+													<div id="circle" class="circle" style="width:100%;text-align: cnter;background-color:#fff;">		
+															<img v-show="item.isOnline==1" src="../../img/icon/pan.gif" alt="" style="width: 80px;height: 80px;">
+															<img v-show="item.isOnline!=1" src="../../img/icon/pan.png" alt="" style="width: 80px;height: 80px;">											
+														</div>
+														<p ><span style="color:#333;padding-right: 5px;">硬盘</span><span style="color:#999;padding-right: 5px;">已使用</span>
+															<span style="color:#2F82FF;">{{item.diskUseDesc}}</span><span style="color:#333;">/{{item.diskTotalDesc}}</span>
+														</p>
+												</li>
+										</div>
+										<div class="lddq">
+											<li class="">
+												<span>历史收益：</span>
+												<p><span>{{item.grandTotalIncome}}</span> {{coinAsset.coinType}}</p>
+											</li>
+											<li class="">
+												<span>本月收益：</span>
+												<p><span>{{item.monthIncome}}</span> {{coinAsset.coinType}}</p>
+											</li>
+										</div>
+										<div v-show="item.isOnline==1" id="records" class="records" style="background-color:#F8F9FA;padding:10px 10px 0 10px;" >
+
+											</div>
+										<div v-show="item.isOnline!=1"  class="offlinerecord" style="background-color:#F8F9FA;padding:10px 10px 0 10px;" >
+
+										</div>
+										
+									</div>
+								</template>
+							</template>
+						</div>
+						<!--end内容-->
+		            </div>
+					<!--FIL-->
+		            <div class="swiper-slide slidepage">
+		            	<!--内容-->
+						<div class="userBoxFirst">
+							<div>
+								<p><a href="#">累计收益</a></p>
+								<p><a href="#">{{totalSum}}</a><span>元</span></p>
+							</div>
+							<p></p>
+							<div>
+								<p><a href="#">昨日收益</a></p>
+								<p><a href="#">{{yesSum}}</a><span>元</span></p>
+							</div>
+						</div>
+						<div class="item">
+							<h1>推荐排行榜</h1>
+							<div class="content01 zrsy">
+								<!-- <div class="tgdt">
+									<img src="../../img/icon/gb@2x.png" />
+									<span style="color:#3880EE;padding-right:5px;">推广动态</span>
+									<p>a 推荐，获得收益<span>b</span>元</p>
+									<p>{{dongTai.mobile}} 推荐，获得收益<span>{{dongTai.coin}}</span>元</p>
+								</div> -->
+								<div class="tgdt">
+										<img src="../../img/icon/gb@2x.png" />
+										<span style="color:#3880EE;padding-right:5px;">推广动态</span>
+										<div id="gundongAreaMain">
+												<div id="gundong">
+												<div id="gundongAreaMain1">
+												<ul id="gundongAreaMain2">
+														<template v-for="(i,item) in dongTai">
+																<li>{{item.mobile}} 推荐，获得收益<span>{{item.coin}}</span></li>
+															</template>
+												<!-- <li>100... 推荐，获得收益<span >1.22</span>元</li>
+												<li>100... 推荐，获得收益<span>1.22</span>元</li>
+												<li>100... 推荐，获得收益<span>1.22</span>元</li>
+												<li>100... 推荐，获得收益<span>1.22</span>元</li> -->
+												</ul>
+												<ul id="gundongAreaMain3"></ul>
+												</div>
+												</div>
+												</div>
+								</div>
+								<!-- 滚动 -->
+								<!-- <div id="gundongAreaMain">
+										<div id="gundong">
+										<div id="gundongAreaMain1">
+										<ul id="gundongAreaMain2">
+										<li><a href="/" target="_blank" style="padding-right: 10px;"><strong>1111111111111111</strong></a></li>
+										<li><a href="/" target="_blank" style="padding-right: 10px;"><strong>2222222222222222</strong></a></li>
+										<li><a href="/" target="_blank" style="padding-right: 10px;"><strong>3333333333333333</strong></a></li>
+										<li><a href="/" target="_blank" style="padding-right: 10px;"><strong>4444444444444444</strong></a></li>
+										</ul>
+										<ul id="gundongAreaMain3"></ul>
+										</div>
+										</div>
+										</div> -->
+								<ul>	
+									<!--<template v-for="(i,item) in rank">
+										<li>
+											<template v-if="i <= 2">
+													<p></p>
+											</template>
+											<template v-else>
+													<p>{{i+1}}</p>
+											</template>
+											<img src="../../img/icon/touxiang@2x.png" />
+											<p>{{item.mobile}}<small class="tjrs">推荐人数：</small><span>{{item.numbers}}</span><small>总收益：</small><span>{{item.coin}}</span><small>元</small></p>
+										</li>
+									</template>	-->
+									<template v-for="(i,item) in rank">
+										<li>
+											<template v-if="i <= 2">
+													<p></p>
+											</template>
+											<template v-else>
+													<p>{{i+1}}</p>
+											</template>
+											<img src="../../img/icon/touxiang@2x.png" />
+											<div>
+												<p>{{item.mobile}}</p>
+												<div>
+													<!-- <dd>
+														<small>推荐人数：</small>
+														<span>{{item.numbers}}</span>
+													</dd> -->
+													<dd>
+														<small>总收益：</small>
+														<span>{{item.coin}}</span>
+														<!-- <small>元</small> -->
+													</dd>
+												</div>																						
+											</div>
+										</li>
+									</template>
+									<!-- <li>
+										<p></p>
+										<img src="../../img/icon/touxiang@2x.png" />
+										<p>王小二<small class="tjrs">推荐人数：</small><span>16</span><small>总收益：</small><span>1600</span><small>元</small></p>
+									</li>
+									<li>
+										<p></p>
+										<img src="../../img/icon/touxiang@2x.png" />
+										<p>王小二<small class="tjrs">推荐人数：</small><span>16</span><small>总收益：</small><span>1600</span><small>元</small></p>
+									</li>
+									<li>
+										<p>4</p>
+										<img src="../../img/icon/touxiang@2x.png" />
+										<p>王小二<small class="tjrs">推荐人数：</small><span>16</span><small>总收益：</small><span>1600</span><small>元</small></p>
+									</li>
+									<li>
+										<p>5</p>
+										<img src="../../img/icon/touxiang@2x.png" />
+										<p>王小二<small class="tjrs">推荐人数：</small><span>16</span><small>总收益：</small><span>1600</span><small>元</small></p>
+									</li>
+									<li>
+										<p>6</p>
+										<img src="../../img/icon/touxiang@2x.png" />
+										<p>王小二<small class="tjrs">推荐人数：</small><span>16</span><small>总收益：</small><span>1600</span><small>元</small></p>
+									</li> -->
+								</ul>
+							</div>
+						</div>
+						<!--end内容-->
+		            </div>
+		        </div>	
+			<!--</div>-->
+	        
+	    </div>
+	</div>
+<!--底部导航-->
+	<div id="footer" class="border-t">
+	    <ul class="flex-wrap" >
+	        <a href="../Activity/Home.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con " >互联</a>
+	        <a href="Earnings.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active" >收益</a>
+	        <a href="../Mall/Mall.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >商城</a>	        
+	        <a href="../User/User.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >我的</a>	        
+	    </ul>
+	</div>
+<!--END底部导航-->
+
+<!--我要抵押-->
+<div class="wydy diya">
+	<img class="del" src="../../img/icon/Del.png" />
+	<p class="yue">账户余额： <span>{{coinAsset.coin}} {{coinAsset.coinType}}</span></p>
+	<p class="kj">还可抵押空间 <span>{{coinAsset.totalSpace-coinAsset.pledgeSpace-coinAsset.pledgeSpaceing}}</span>TB</p>
+	<div class="tb">
+		<p class="jian" @click="jianFun()">-</p>
+		<p class="shuzi">{{spaceNum}}<span>TB</span></p>
+		<p class="jia" @click="addFun()">+</p>
+	</div>
+	<p class="xzf">需支付：<span>{{totalCoin}}{{coinAsset.coinType}}</span></p>
+	<div class="diyadibu" @click="pledgeSubmit()">抵押</div>
+</div>
+<!--账户余额不足-->
+<div class="wydy zhye">
+	<p>账户余额不足，请充值后继续操作！</p>
+	<div>
+		<span class="quxiao">取消</span>
+		<span class="chongzhi" @click="goRecharge()">去充值</span>
+	</div>
+</div>
+<!--公告-->
+<div class="wydy gonggao">
+	<h3>公告</h3>
+	<p>2019年6月2日矿池将更改为LAMB，为了不影响您的收益，请于当日将当前抵押币取出，并使用LAMB币进行抵押。</p>
+	<span>朕知道了！</span>
+</div>
+<div class="overFlowDiv"></div>
+
+</div>
+</body>
+
+<script src="../../js/dayjs.min.js"></script>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/Earnings/Earnings.js"></script>
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};
+
+var speed=60; //数字越大速度越慢
+var tab=document.getElementById("gundong");
+var tab1=document.getElementById("gundongAreaMain2");
+var tab2=document.getElementById("gundongAreaMain3");
+tab2.innerHTML=tab1.innerHTML;
+function Marquee(){
+if(tab2.offsetWidth-tab.scrollLeft<=0)
+tab.scrollLeft-=tab1.offsetWidth
+else{
+tab.scrollLeft++;
+}
+}
+var MyMar=setInterval(Marquee,speed);
+tab.onmouseover=function() {clearInterval(MyMar)};
+tab.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+// $(function(){
+// 	//左边
+// 	setPercentL(0.9);
+// 	//右边
+// 	setPercentR(0.5);
+// })
+// function setPercentL(v){
+// 	if(v==0){	
+// 		 document.getElementById("circle").style.backgroundColor="#C0D9FF";	
+// //		 document.getElementById("t").style.transform="rotate("+(360*v)+"deg)";	
+// 	}
+// 	if(v<0.5){	
+// 		 document.getElementById("tl").style.backgroundColor="#C0D9FF";	
+// 		 document.getElementById("tl").style.transform="rotate("+(360*v)+"deg)";	
+// 	}else{	
+// 		 document.getElementById("tl").style.backgroundColor="#2F82FF";
+// 		 document.getElementById("tl").style.transform="rotate("+(360*(v-0.5))+"deg)";	
+// 	}	
+// 	 document.getElementById("bfb_l").innerHTML=(v*100)+"%";
+// }
+// function setPercentR(v){
+// 	if(v==0){	
+// 		 document.getElementById("circle").style.backgroundColor="#C0D9FF";	
+// //		 document.getElementById("t").style.transform="rotate("+(360*v)+"deg)";	
+// 	}
+// 	if(v<0.5){	
+// 		 document.getElementById("tr").style.backgroundColor="#C0D9FF";	
+// 		 document.getElementById("tr").style.transform="rotate("+(360*v)+"deg)";	
+// 	}else{	
+// 		 document.getElementById("tr").style.backgroundColor="#2F82FF";
+// 		 document.getElementById("tr").style.transform="rotate("+(360*(v-0.5))+"deg)";	
+// 	}	
+// 	 document.getElementById("bfb_r").innerHTML=(v*100)+"%";
+// }
+</script>
+</html>

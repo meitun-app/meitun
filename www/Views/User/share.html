@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的二维码</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+html{
+    font-size: 13.333333vw;
+}
+   .box{
+        position: relative;
+    }
+    .code-container{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .24rem;
+        position: absolute;
+        left:0;
+        bottom:3rem;
+        color:#c5966b;
+    }
+    .code-container .code{
+        line-height: .4rem;
+    }
+    .code-container .codeval{
+        padding: 0 .2rem;
+    }
+    .code-container .button{
+        font-size: .28rem;
+        line-height: .4rem;
+        color:#fe694b;
+    }
+    .shareImg{
+        display: block;
+        width: 100%;
+    }
+    .share{
+        width: 100%;
+        display: flex;
+        position: absolute;
+        left:0;
+        bottom:1.6rem;
+        padding: 0 1rem;
+        align-items: center;
+    }
+    .share div{
+        height:.67rem;
+    }
+    .share div img{
+        display: block;
+    }
+    .share img{
+        width:2.4rem;
+    }
+    .share div.line {
+        flex:1;
+    }
+    .share div.line img{
+        width: 0.08rem;
+        margin: 0 auto;
+    }
+
+ 
+</style>
+</head>
+<body>
+<div class="shareQRCode">
+	<header class="nav">
+		<a></a>
+		<a href="User.html"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">我的二维码</h1>		    
+    </header>
+      <div class="box">
+        <img id="shareImg" class="shareImg" src="../../img/img-xingjiedian@2x.png" />
+        <div class="code-container">
+            <div class="code"><span>我的邀请码:</span><span class="codeval"></span></div>
+            <div class="button">复制</div>
+        </div>
+        <div class="share">
+            <div><img src="../../img/wechat_share.png" alt=""></div>
+            <div class="line"><img src="../../img/share_line.png" alt=""></div>
+            <div><img src="../../img/friend_share.png" alt=""></div>
+        </div>
+		
+		<div  style="display:none;" >
+			<p>链接地址：</p>
+			<input id="sharehref"  type="url" value="https://appfront.meitun.ai/registered.html" />
+			<p>链接标题：</p>
+			<input id="sharehrefTitle"  type="text" value="魅豚科技" />
+			<p>链接描述：</p>
+			<input id="sharehrefDes"  type="text" value="科技改变生活，我们改变世界。"/></br>
+		</div>
+    </div>
+</div>
+</body>
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/base.js"></script>
+<script>
+	var json = $.localStorageHandler("get","userInfo");
+	    var data = JSON.parse(json);
+		if(data.userNo){
+			document.getElementById('sharehref').value="https://appfront.meitun.ai/registered.html?invitecode="+data.userNo
+		}
+
+  var shares=null;
+  var Intent=null,File=null,Uri=null,main=null;
+  // H5 plus事件处理
+  function plusReady(){
+      updateSerivces();
+      if(plus.os.name=="Android"){
+          main = plus.android.runtimeMainActivity();
+          Intent = plus.android.importClass("android.content.Intent");
+          File = plus.android.importClass("java.io.File");
+          Uri = plus.android.importClass("android.net.Uri");
+      }
+  }
+  if(window.plus){
+      plusReady();
+  }else{
+      document.addEventListener("plusready",plusReady,false);
+  }
+  
+  /**
+   * 
+   * 更新分享服务
+   */
+  function updateSerivces(){
+      plus.share.getServices( function(s){
+          shares={};
+          for(var i in s){
+              var t=s[i];
+              shares[t.id]=t;
+          }
+      }, function(e){
+          alert("获取分享服务列表失败："+e.message );
+      } );
+  }
+  
+  
+  
+  /**
+     * 分享操作
+     * @param {JSON} sb 分享操作对象s.s为分享通道对象(plus.share.ShareService)
+     * @param {Boolean} bh 是否分享链接
+     */
+  function shareAction(sb,bh) {
+      if(!sb||!sb.s){
+          alert("无效的分享服务！");
+          return;
+      }
+      
+      var msg={content:sharehrefDes.value,extra:{scene:sb.x}};
+      if(bh){
+          msg.href=sharehref.value;
+          if(sharehrefTitle&&sharehrefTitle.value!=""){
+              msg.title=sharehrefTitle.value;
+          }
+          if(sharehrefDes&&sharehrefDes.value!=""){
+              msg.content=sharehrefDes.value;
+          }
+          msg.thumbs=[data.shareImg];
+          msg.pictures=[data.shareImg];
+      }else{
+          if(pic&&pic.realUrl){
+              msg.pictures=[pic.realUrl];
+          }
+      }
+      // 发送分享
+      if ( sb.s.authenticated ) {
+         // alert("---已授权---");
+          shareMessage(msg,sb.s);
+      } else {
+         // alert("---未授权---");
+          sb.s.authorize( function(){
+                  shareMessage(msg,sb.s);
+              },function(e){
+                  alert("认证授权失败："+e.code+" - "+e.message );
+          });
+      }
+  }
+  /**
+     * 发送分享消息
+     * @param {JSON} msg
+     * @param {plus.share.ShareService} s
+     */
+  function shareMessage(msg,s){
+     // alert(JSON.stringify(msg));
+      s.send( msg, function(){
+          //alert("分享到\""+s.description+"\"成功！ " );
+          
+      }, function(e){
+         // alert( "分享到\""+s.description+"\"失败: "+JSON.stringify(e) );
+      
+      } );
+  }
+  // 分析链接
+  function shareHref1(){
+      var shareBts=[];
+      // 更新分享列表
+      var ss=shares['weixin'];
+      ss&&ss.nativeClient&&(shareBts.push({title:'微信好友',s:ss,x:'WXSceneSession'}));
+      shareBts.length>0?plus.nativeUI.actionSheet({cancel:'取消',buttons:shareBts},function(e){
+          (e.index>0)&&shareAction(shareBts[e.index-1],true);
+      }):plus.nativeUI.alert('当前环境无法支持分享链接操作!');
+  }
+  function shareHref2(){
+      var shareBts=[];
+      // 更新分享列表
+      var ss=shares['weixin'];
+      ss&&ss.nativeClient&&(shareBts.push({title:'微信朋友圈',s:ss,x:'WXSceneTimeline'}));
+      shareBts.length>0?plus.nativeUI.actionSheet({cancel:'取消',buttons:shareBts},function(e){
+          (e.index>0)&&shareAction(shareBts[e.index-1],true);
+      }):plus.nativeUI.alert('当前环境无法支持分享链接操作!');
+  }
+  
+  
+  
+  
+  
+
+    //返的图片 data.shareImg
+    $("#shareImg").attr("src",data.shareImg);
+    if(json){
+      $('.code-container .codeval').text(data.userNo)
+    }
+	$('.code-container .button').click(()=>{
+        page.copyFun(data.userNo)
+    })
+ mui.init({
+        gestureConfig: {
+            longtap: true
+        }
+    });
+const  imgs = document.querySelectorAll('.share img')
+imgs[0].onclick=()=>{
+    //微信分享
+  shareHref1()
+}
+imgs[2].onclick=()=>{
+    //朋友圈
+    shareHref2()
+}
+  mui.plusReady(function() {
+        document.addEventListener('longtap', function(e) {
+            var target = e.target;
+            savePic(target);
+        });
+    });
+	
+	function download(){
+		plus.webview.create("www.baidu.com")
+	}
+	
+	
+	 /**
+     * 长按保存图片
+     * 1. 获取图片链接
+     * 2. 创建下载并下载图片
+     * 3. 保存至相册
+     */
+    function savePic(target) {
+        if(target.tagName == 'IMG' && target.currentSrc.length > 0 ) { //确保图片链接不为空
+            var imgUrl = target.src;
+
+            var suffix = cutImageSuffix(imgUrl);
+
+            mui.confirm("是否保存此图片", "", ["保存", "取消"], function(event) {
+                var index = event.index;
+                if(index == 0) {
+                    var timestamp = (new Date()).valueOf();
+                    var downLoader = plus.downloader.createDownload(imgUrl, {
+                        method: 'GET',
+                        filename: '_downloads/image/' + timestamp+'.png'
+                    }, function(download, status) {
+                        var fileName = download.filename;
+                        /**
+                         * 保存至本地相册
+                         */
+                        plus.gallery.save(fileName, function() {
+                            mui.toast("保存成功" );
+
+                        });
+                    });
+                    /**
+                     * 开始下载任务
+                     */
+                    downLoader.start();
+                }
+            });
+        }
+    }
+    // 截取图片后缀用于重命名图片，防止%E5%85%89%E6%98%8E%E8%A1%8C编码的文件不被系统相册识别；
+    function cutImageSuffix(imageUrl) {
+        var index = imageUrl.lastIndexOf('.');
+        return imageUrl.substring(index);
+    }
+</script>
+</html>

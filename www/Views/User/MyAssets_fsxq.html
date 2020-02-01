@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>发送FIL</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/swiper.js"></script>
+    <link href="../../css/swiper.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+body{
+	background-color: white;
+}
+</style>
+</head>
+<body style="height: 100%;">
+<div id="assets-main" v-clock class="myjifen" style="height: 100%;background-color: #F4F4F4;">
+	<header class="nav">
+		<a href=""></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">发送 {{coinType.coinType}}</h1>		    
+	</header>    
+    <div id="nav" class="swiper-container">
+        <ul class="swiper-wrapper">
+            <li class="swiper-slide active-nav"><a href="javascript:;">区块链用户</a></li>
+            <li class="swiper-slide"><a href="javascript:;">站内用户</a></li>
+        </ul>
+    </div>
+    <div id="page" class="swiper-container" id="page">
+        <div class="swiper-wrapper">	        	
+            <div class="swiper-slide slidepage">
+				<div class="fil_info">
+					<div>
+						<p>转账金额</p>
+						<span>余额：<b>{{coinType.coin}} {{coinType.coinType}}</b></span>
+					</div>
+					<p class="fil_info_num"> 
+						<input v-model="block.amount" placeholder="0" class="showMoney" @keyup='outMoney' />
+						<button class="showAll">全部</button></p>
+				</div>
+				<div class="fil_info">
+					<p class="fil_info_num">
+						<label for="">接收地址：</label>
+						<input v-model="block.path" placeholder="请输入地址" />
+						<button @click="address"><img src="../../img/web.png" alt=""></button>
+					</p>
+					<p class="fil_info_num">
+						<label for="">发送地址：</label>
+						<input v-model="sendAddress" placeholder="请输入地址" disabled/>
+					</p>
+					<!-- <div>
+						<p>转出数量</p>
+						<span class="fil_yue">余额：{{coinType.coin}}{{coinType.coinType}}</span>
+					</div>
+					<input v-model="block.amount" placeholder="请输入转出数量" /> -->
+				</div>
+				
+				<div class="pay" @click="submit">					
+					<div><a class="buy-confirm">确定</a></div>				
+				</div>
+            </div>
+            <div class="swiper-slide slidepage">
+            	<!--内容-->
+				<div class="fil_info">
+					<div>
+						<p>付给</p>
+						<span>没有钱包</span>
+					</div>
+					<input v-model="zhan.mobile"  placeholder="请输入对方手机号" />
+				</div>
+				<div class="fil_info">
+					<div>
+						<p>转出数量</p>
+						<span class="fil_yue">余额：{{coinType.coin}} {{coinType.coinType}}</span>
+					</div>
+					<input v-model="zhan.amount"  placeholder="请输入转出数量" @keyup='outMoney2' />
+				</div>
+				<p class="zhuyi" style="background-color: #fff; color: #333;padding: 15px 20px;">
+					注意事项：<br /> 1、为保障资金安全，当您账户安全策略变更、密码修改，我们会对发币进行人工审核，请耐心等待工作人员电脑或邮件联系 <br />2、提币前请务必核对收款人地址，由于收款地址错误导致的资产丢失，平台该不负责
+				</p>
+				<div class="pay" @click="submit">					
+					<div class="buy-confirm"><a>提交</a></div>				
+				</div>
+				<!--end内容-->
+            </div>
+        </div>
+    </div>
+
+
+<!--密码输入-->
+<div class="common-part pay-part">
+        <div class="common-dialog pay-dialog">
+        	<div class="clearfix">
+        		<div class="del"><img src="../../img/icon/Del.png" /></div>
+        		<div  class="dialog-title">请输入支付密码</div>
+        	</div>
+            
+<!--            <div class="pay-money">$10000.00</div>-->
+            <div class="pay-password">
+                <input @keyup="checkNumberLen()" type="password" v-model="payPassword" maxlength="7" class="real-ipt">
+                <div class="surface-ipts">
+                    <div class="surface-ipt">
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                    </div>
+                </div>
+            </div>
+			<div id="showSetting" style="display: none;" @click="goSettingPayWord()">未设置支付密码，<a>去设置</a></div>
+            <!--<div class="btns">
+                <button class="cancel-btn">取消</button>
+                <button class="confirm-btn">付款</button>
+            </div>-->
+        </div>
+    </div>
+ <!--end密码输入-->   
+
+</div>
+</body>
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/myassetsfsxq.js"></script>
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+//点击全部赎回
+function aiishouhui(){
+	$(".overFlowDiv,.shouhui").show();
+}
+$(".quxiao,.shouHui").click(function(){
+	$(".overFlowDiv,.shouhui").hide();
+})
+</script>
+</html>

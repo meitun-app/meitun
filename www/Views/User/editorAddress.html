@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+			<a></a>
+    <title>编辑收货地址</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+
+
+</style>
+</head>
+<body>
+
+<div id="editaddress-main" v-clock  class="SmartCommunity_newAddress body_bottom_50">
+	<header class="nav">
+			<a></a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+		    <h1 class="title">{{id > 0?'编辑收货地址':'新增收货地址'}}</h1>
+		    <!--<div class="newAddress"><a @click="goDetail(0)"></a></div>-->
+		</header>
+	<section class="aui-flexView">
+        <section class="aui-scrollView">
+            <div class="aui-address-box">
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">收货人</div>
+                    <div class="aui-cell-input">
+                        <input type="text" v-model="detail.userName" class="cell-input" placeholder="请输入您的姓名" autocomplete="off">
+                    </div>
+                </div>
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">电话</div>
+                    <div class="aui-cell-input">
+                        <input type="number" class="cell-input"  @keydown="telNumberDown()" v-model="detail.telNumber" placeholder="请输入您的电话" autocomplete="off">
+                    </div>
+                </div>
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">所在地区</div>
+                    <div class="aui-cell-input cell-input-text">
+                        <input type="text" class="cell-input" readonly id="J_Address"  v-model="allRegion"   placeholder="请选择收货地址">
+                    </div>
+                </div>
+                <div class="aui-address-cell-item">
+                    <div class="aui-cell-name">详细地址</div>
+                    <div class="aui-cell-input">
+                        <input type="text" class="cell-input"  v-model="detail.detailInfo"  placeholder="请输入街道地址" autocomplete="off">
+                    </div>
+                </div>
+                <div class="aui-radio" @click="defaultAddress()" >
+                	<img  id="moren" src="../../img/icon/Shape@2x(2).png" />
+                	<p>设为默认地址</p>
+                	<!--<span class="defaultAddress" :class="detail.isDefault == 1?'defaultAddress01':''" @click="defaultAddress()">
+                		<small class="defaultAddress_mark" :class="detail.isDefault == 1?'defaultAddress_mark01':''"></small>
+                	</span>-->
+                </div>
+            </div>
+        </section>
+    </section>
+	<template v-if="id==0">
+		<div class="SaveAddress"  @click="saveAddress()" >
+			保存
+		</div>
+	</template>
+	<template v-else>
+		<div class="deleteSaveAddress" >
+			<p  class="deleteAddress" @click="deleteAddress()">删除</p>
+			<p class="saveAddress" @click="saveAddress()" >
+			保存
+			</p>
+		</div>
+	</template>
+    
+	
+
+
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/address.js"></script>
+<script src="../../js/city.js"></script>
+<script src="../../js/user/editorAddress.js"></script>
+	
+	
+<script type="text/javascript">
+    /**
+     * 默认调用
+     */
+//     !function() {
+//         var $target = $('#J_Address');
+// 
+//         $target.citySelect();
+// 
+//         $target.on('click', function(event) {
+//             event.stopPropagation();
+//             $target.citySelect('open');
+//         });
+// 
+//         $target.on('done.ydui.cityselect', function(ret) {
+//             $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+//         });
+//     }();
+    /**
+     * 设置默认值
+     */
+    // function defaultAddress(){
+    // 	var test1 = document.getElementById('moren');
+	   //  if(test1.src.indexOf('Shape') >= 0){
+	   //      test1.src="../../img/icon/huisedagou@2x(2).png";
+	   //  }else{
+	   //      test1.src="../../img/icon/Shape@2x(2).png";
+	   //  }
+    	
+    // }
+    
+</script>
+<script>
+	const h = document.body.scrollHeight  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
+	window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
+	  if (document.body.scrollHeight < h) {
+	    document.body.style.height = h
+	  }
+	}
+</script>
+</body>
+</html>

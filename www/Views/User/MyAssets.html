@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的资产</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+	
+</style>
+</head>
+<body>
+<div id="assets-main" v-clock  class="myjifen">
+	<div class="orderFukuan">
+		<header class="nav nav_wu">
+			<a href=""></a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrowbai@2x.png" /></a>		
+		    <h1 class="title">我的资产</h1>		    
+		</header>
+		<div class="zichan">
+			<p>可用余额</p>
+			<template v-if="currentCoin.isPledge==1">
+				<p>已抵押 {{currentCoin.pledgeCoin}} {{currentCoin.coinType}} <span onclick="aiishouhui()">全部赎回</span></p>
+			</template>
+			
+			<template v-else>
+				<p>{{currentCoin.isPledge==2?'赎回中':'未抵押'}}</p>
+				
+			</template>
+		</div>
+	</div>
+	<div class="myjifenbox zichanbox">
+		<div class="zichan_info clearfix">
+			<template v-for="item in coinTypes">
+				<li>
+					<a href="MyAssets_detail.html?type={{item.coinType}}">
+					<img :src="item.img == ''?'../../img/icon/yta@2x.png':item.img" />
+					<div>
+						<p>{{item.coinType}}</p>
+						<p>{{item.coin}}<span></span></p>
+					</div>
+					</a>
+				</li>
+			</template>
+
+		</div>
+		<div class="myjifen_tabl">
+			<h1>资产收益报表</h1>
+			<div>
+				<table style="width: 100%; ">
+				    <tr style="width: 100%;color: #999999;font-size: 12px;border-bottom: 1px solid #f0f0f0;">
+				        <td style="width: 20%;">日期</td>
+				        <td style="width: 10%;">币种</td>
+				        <td style="width: 25%;" colspan="2">收益&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				        <td style="width: 25%;"colspan="2">推广收益&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				        <td style="width: 20%;">生产收益</td>			      
+				    </tr>
+					
+					<template v-if="incomeList.length == 0">
+						<tr style="width: 100%;">
+				        <td colspan="7" class="wu">您还没有任何收益信息</td>
+
+				    </tr>
+					</template>
+					<template v-else>
+						<template v-for="income in incomeList">
+							<tr style="width: 100%;">
+								<td style="width: 15%; color: #999999;font-size: 12px;">{{income.time}}</td>
+								<td style="width: 15%; color: #333;">{{currentCoin.coinType}}</td>
+								<td style="width: 20%; color: #FF5400;">{{income.totalIncome}}</td>
+								<td style="width: 5%;">=</td>
+								<td style="width: 20%;">{{income.extendIncome}}</td>
+								<td style="width: 5%;">+</td>
+								<td style="width: 20%;">{{income.income}}</td>	
+							</tr>
+						</template>
+						
+					</template>
+				    
+				    
+
+				</table>				
+			</div>
+
+		</div>
+		<div class="bottom_fix" @click="goChongBi()">
+			<span style="width: 100%;"><a>充币</a></span>			
+		</div>
+	</div>
+	
+	
+	<!--fugaikuang-->
+	<div class="shouhui">
+		<p>抵押币会赎回到平台账户，请注意查收</p>
+		<div>
+			<span class="quxiao">取消</span>
+			<span class="shouHui" @click="redeem()">确定赎回</span>
+		</div>
+	</div>
+	<div class="overFlowDiv"></div>
+</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/myassets.js"></script>
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+
+//点击全部赎回
+function aiishouhui(){
+	$(".overFlowDiv,.shouhui").show();
+}
+$(".quxiao,.shouHui").click(function(){
+	$(".overFlowDiv,.shouhui").hide();
+})
+</script>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>钱包明细</title>
+    <script src="https://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+	<link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="mingxi-main" v-clock class="jifenmingxi">
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		
+	<div class="mui-scroll">
+	
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">钱包明细</h1>		    
+	</header>
+	
+	<div class="list">
+		<div>
+			<input id="date_info" type="date" v-model="date" @input="dateInput()"  name="bday">			
+		</div>
+		<div>
+			<p>人民币</p>
+			<p><span>收益：{{extend.income}}</span><span>支出：{{extend.pay}}</span></p>
+		</div>
+	</div>
+	
+	<!-- mui-content mui-scroll-wrapper -->
+	<div  class="alert_info ">
+		
+		
+		<template v-for="item in assetList">
+			<div class="alert_info_column">			
+				<div>
+					<p>{{item.type == 'DirectPushIncome'?'收益':item.type == 'TeamIncome'?'收益':item.type == 'ExchangeWallet'?'转出':item.type == 'ExchangeInWallet'?'转入':item.wallet > 0?'收益':'支出'}}</p>
+					<div>
+						<p>{{item.remark}}</p>
+						<p>{{item.createTime}}</p>
+					</div>
+				</div>
+				<p class="alert_info_jia">{{item.wallet}}</p>
+			</div> 
+		</template>
+		</div>
+		</div>
+	</div> 
+	</div>
+
+</div>
+</body>
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/assetDetail.js"></script>
+
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+ $(document).ready(function () {
+        var time = new Date();
+        var day = ("0" + time.getDate()).slice(-2);
+        var month = ("0" + (time.getMonth() + 1)).slice(-2);
+        var today = time.getFullYear() + "-" + (month) + "-" + (day);
+        $('#date_info').val(today);
+    })
+
+</script>
+</html>

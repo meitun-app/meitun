@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>充值</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/mui.css" rel="stylesheet"/>
+	<link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="recharge-main" v-clock class="MyQianbao_congzhi">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">充值</h1>		    
+	</header>
+	<div class="MyQianbao_congzhi_input shoukuan" style="border-top: 10px solid #F8F9FA;">
+		<span>收款方名称：</span>
+		<p>{{company.accountName}}</p>
+	</div>
+	<div class="MyQianbao_congzhi_input lis" >
+		<li>
+			<span>银行卡开户行： </span>
+			<p>{{company.bankName}}</p>
+		</li>
+		<li class="zhanghao">
+			<div>
+				<span>收款方账号：</span>
+				<div>{{company.bankAccount}}</div>
+			</div>			
+			<a @click="copyText(company.bankAccount)">复制</a>
+		</li>
+		
+	</div>
+	
+	<div class="MyQianbao_congzhi_input">
+		<p class="chuandan">上传汇款单</p>
+		<div>
+			<template v-if="image != ''">
+				<div>
+				<img class="del" @click="deleteImg()" src="../../img/icon/Del.png" />
+				<img :src="image" />
+			</div>
+			</template>
+			
+			<template v-if="image == ''">
+			<p @click="choose()">+</p>
+			</template>
+			
+		</div>
+		<div class="czje">
+			<span>充值金额 (元)：</span>
+			<input type="number" v-model="amount" placeholder="请输入充值金额" />
+		</div>
+		<div class="czje">
+			<span>汇款时间：</span>
+			<input type="date" v-model="transferTime" placeholder="请选择汇款时间" />
+		</div>
+		<div class="czje">
+			<span>汇款人：</span>
+			<input type="text" v-model="transferName" placeholder="请输入汇款人" />
+		</div>
+	</div>
+	
+	<p class="audit">充值一般需要审核1-3分钟，请及时查看我的钱包-资金明细 确定到账状态</p>
+	<div @click="addRecharge()" class="tijiao">提交</div>
+</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/aui-slide.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/chongzhi.js"></script>
+
+</html>

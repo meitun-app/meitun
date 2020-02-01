@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>帮助中心</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="bangzhu-main" v-clock class="bangzhu body_bottom_x65">
+	<header class="nav">
+		<a></a>
+		<a href="javascript:goBack();"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">帮助中心</h1>		    
+	</header>
+	<div class="bzzx">
+		<template v-for="item in list">
+			<li>
+				<div class="flip">
+					<p>{{item.question}}</p>
+					<img src="../../img/icon/icon_l_down@2x.png" />
+				</div>
+				<p>{{item.answer}}</p>
+			</li>
+			
+		</template>
+		
+	</div>
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/bangzhu.js"></script>
+<script>
+	mui.init({
+		
+	})
+	
+	function goBack(){
+		window.location.href="User.html";
+	}
+</script>
+</body>
+</html>

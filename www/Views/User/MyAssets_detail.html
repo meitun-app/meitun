@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的资产</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/swiper.js"></script>
+    
+	<link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/swiper.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+	.mui-content{
+		background-color:transparent;
+	}
+	#page{
+		background-color:#efeff4;
+	}
+</style>
+</head>
+<body>
+<div id="assets-main" v-clock class="myjifen">
+	<div class="ppio">
+		<header class="nav nav_wu">
+			<a href=""></a>
+			<a @click="goBack()"><img src="../../img/icon/LeftArrowbai@2x.png" /></a>		
+		    <h1 class="title">{{coinType.coinType}}</h1>		    
+		</header>
+		<div class="ppio_info">
+			<img :src="coinType.img==''?'../../img/icon/ppio@2x.png':coinType.img" />
+			<div>
+				<p>余额：{{coinType.coin}}</p>
+				<span></span>
+			</div>
+		</div>
+	</div>
+	<div class="myjifenbox zichanbox wdzc">
+		<div id=header>        
+	        <div id="nav" class="swiper-container">
+	            <ul class="swiper-wrapper jyfb">
+	                <li class="swiper-slide active-nav"><a href="javascript:;">收益</a></li>
+	                <li class="swiper-slide"><a href="javascript:;">发送</a></li>
+	                <li class="swiper-slide"><a href="javascript:;">接收</a></li>
+	            </ul>
+	        </div>
+	    </div>
+	    <div id="page" class="swiper-container">
+	        <div class="swiper-wrapper">
+	        	
+	            <div class="swiper-slide slidepage">
+	            	<!--内容-->
+					<template v-if="orderList.length == 0">
+						<div class="alert_info_column " style="justify-content:center;align-items: center;">
+					    	<div>
+								<div class="wu">
+										<p>您还没有任何数据</p>
+								</div>
+								
+							</div>
+						</div>
+					</template>	
+					<template v-else>
+						<template v-for="item in orderList">
+							<div class="alert_info_column " :class="clickedIndex == 0?'shouyi_info_column':clickedIndex==1?'fasong_info_column':clickedIndex==2?'jieshou_info_column':''">			
+								<div>
+									<p>{{item.kind == 'Income'?'生产':item.kind == 'ExtendIncome'?'推广':
+									item.kind == 'Send'?'区块链':item.kind == 'SendOnSite'?'站内':item.kind == 'Receive'?'接收':item.kind == 'Recharge'?'充值':
+									item.kind == 'Pledge'?'抵押':item.kind == 'Redeem'?'赎回':item.kind == 'PledgeReject'?'抵押拒绝':item.kind == 'KongTou'?'空投':'未知'}}</p>
+									<div>
+										<p>{{clickedIndex == 1?'发往':'来自'}} {{item.remark}}</p>
+										<p>{{item.createTime}}</p>
+									</div>
+								</div>
+								<p class="alert_info_jia">{{item.coin>0?'+':''}}{{item.coin}}</p>
+							</div>
+						</template>
+					</template>
+					
+	            	
+					<!-- <div class="alert_info_column shouyi_info_column">			
+						<div>
+							<p>推广</p>
+							<div>
+								<p>来自 0x35fhd...6vhfbc</p>
+								<p>2019-04-19 13:56</p>
+							</div>
+						</div>
+						<p class="alert_info_jia">+900</p>
+					</div> -->
+					<!--end内容-->
+					<div id="pullrefresh" class="mui-content mui-scroll-wrapper"></div>
+	            </div>
+	            <!--<div class="swiper-slide slidepage">
+	            	
+	            	<!-- <div class="alert_info_column fasong_info_column">			
+						<div>
+							<p>收益</p>
+							<div>
+								<p>生产推广收益</p>
+								<p>2019-04-19 13:56</p>
+							</div>
+						</div>
+						<p class="alert_info_jia">-900</p>
+					</div>
+					<div class="alert_info_column fasong_info_column">			
+						<div>
+							<p>收益</p>
+							<div>
+								<p>生产推广收益</p>
+								<p>2019-04-19 13:56</p>
+							</div>
+						</div>
+						<p class="alert_info_jia">-900</p>
+					</div> 
+					<div class="alert_info_column fasong_info_column">			
+						<div>
+							<p>区款连</p>
+							<div>
+								<p>生产推广收益</p>
+								<p>2019-04-19 13:56</p>
+							</div>
+						</div>
+						<p class="alert_info_jia">-900</p>
+					</div>
+			
+	            </div>-->
+	           <!-- <div class="swiper-slide slidepage">
+	            	
+	            	<div class="alert_info_column jieshou_info_column">			
+						<div>
+							<p>接收</p>
+							<div>
+								<p>生产推广收益</p>
+								<p>2019-04-19 13:56</p>
+							</div>
+						</div>
+						<p class="alert_info_jia">+900</p>
+					</div>
+					<div class="alert_info_column jieshou_info_column">			
+						<div>
+							<p>接收</p>
+							<div>
+								<p>生产推广收益</p>
+								<p>2019-04-19 13:56</p>
+							</div>
+						</div>
+						<p class="alert_info_jia">+900</p>
+					</div>
+					<div class="alert_info_column jieshou_info_column">			
+						<div>
+							<p>接收</p>
+							<div>
+								<p>生产推广收益</p>
+								<p>2019-04-19 13:56</p>
+							</div>
+						</div>
+						<p class="alert_info_jia">+900</p>
+					</div>
+					
+	            </div> -->
+	        </div>
+	    </div>
+	    <div class="bottom_fix" @click="goSendCoin()">
+			<span style="width: 100%;"><a>发送</a></span>			
+		</div>
+	</div>
+	
+	
+	<!--fugaikuang-->
+	<div class="shouhui">
+		<p>抵押币会赎回到平台账户，请注意查收</p>
+		<div>
+			<span class="quxiao">取消</span>
+			<span class="shouHui">确定赎回</span>
+		</div>
+	</div>
+	<div class="overFlowDiv"></div>
+</div>
+</body>
+
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/user/myassetsdetail.js"></script>
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+
+//点击全部赎回
+function aiishouhui(){
+	$(".overFlowDiv,.shouhui").show();
+}
+$(".quxiao,.shouHui").click(function(){
+	$(".overFlowDiv,.shouhui").hide();
+})
+</script>
+<script type="text/javascript">
+// var myNav = new Swiper('#nav', {
+//     spaceBetween: 10,
+//     slidesPerView : 3,//导航显示个数
+//     watchSlidesProgress : true,
+//     watchSlidesVisibility : true,
+//     on:{
+//         tap: function(){
+//             myPage.slideTo( myNav.clickedIndex)
+//         }
+//     }
+// })
+// var myPage = new Swiper('#page',{
+//     on:{
+//     slideChangeTransitionStart: function(){
+//         updateNavPosition()
+//     }}
+// })
+// function updateNavPosition(){
+//     $('#nav .active-nav').removeClass('active-nav');
+//     var activeNav = $('#nav .swiper-slide').eq(myPage.activeIndex).addClass('active-nav');
+//     if (!activeNav.hasClass('swiper-slide-visible')) {
+//       console.log(1);
+//         if (activeNav.index()>myNav.activeIndex) {
+//           console.log(2);
+//             var thumbsPerNav = Math.floor(myNav.width/activeNav.width())-1
+//             myNav.slideTo(activeNav.index()-thumbsPerNav)
+//         }
+//         else {
+//           console.log(3);
+//             myNav.slideTo(activeNav.index())
+//         }   
+//     }
+// }
+</script>
+</html>

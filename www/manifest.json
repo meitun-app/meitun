@@ -1,0 +1,81 @@
+{
+  "@platforms": [
+    "android",
+    "iPhone",
+    "iPad"
+  ],
+  "id": "starnode",
+  "name": "魅豚智能",
+  "version": {
+    "name": "1.1.0",
+    "code": "83"
+  },
+  "description": "",
+  "icons": {
+    "72": "icon.png"
+  },
+  "launch_path": "Views/Activity/Home.html",
+  "developer": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "permissions": {
+    "Cache": {
+      "description": "管理应用缓存"
+    },
+    "Contacts": {
+      "description": "系统通讯录"
+    },
+    "Geolocation": {
+      "description": "位置信息"
+    },
+    "Messaging": {
+      "description": "消息通讯"
+    },
+    "Maps": {
+      "description": "地图"
+    },
+    "OAuth": {
+      "description": "登录授权"
+    },
+    "Payment": {
+      "description": "支付"
+    },
+    "Push": {
+      "description": "消息推送"
+    },
+    "Share": {
+      "description": "社交分享"
+    },
+    "Speech": {
+      "description": "语音识别"
+    },
+    "Grally": {
+      "description": "相册"
+    },
+    "Downloader": {
+      "description": "文件下载管理"
+    },
+    "Statistic": {
+      "description": "统计"
+    },
+    "VideoPlayer": {
+      "description": "视频播放"
+    },
+    "LivePusher": {
+      "description": "直播推流"
+    },
+    "qinglian": {
+      "description": "青莲云"
+    }
+  },
+  "plus": {
+    "splashscreen": {
+      "autoclose": true,
+      "waiting": true
+    },
+    "runmode": "liberate",
+    "signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw=="
+  }
+}

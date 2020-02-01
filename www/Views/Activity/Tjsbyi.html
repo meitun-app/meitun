@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>添加设备</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style>
+
+
+</style>
+</head>
+<body class="tjsb">
+<div id="tjsbyi-main" v-clock class="tjsb">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">添加设备</h1>
+	</header>
+	<div class="wuxian">
+		<li class="wifiname">
+			<input type="text" v-model="wifiSSID" placeholder="我是一个wifi名称 " />
+		</li>
+		<li class="wifinamepassword">
+			<input type="password" v-model="wifiPwd" placeholder="请输入WiFi密码 " />
+		</li>
+		<p>注：设备暂不支持5Gwifi，请切换到2.4G</p>
+	</div>
+	<h4 class="fis">第一步 请填写您家庭的WiFi密码</h4>
+	<div class="tijiao" @click="setWiFi()"><a>下一步</a></div>
+
+</div>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/nativity/test.js"></script>
+<script src="../../js/Activity/Tjsbyi.js"></script>
+
+</body>
+</html>

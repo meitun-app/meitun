@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>商城</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+.SmartShopping_Productimg img{
+	max-width: 105px;
+	/* height: 105px; */
+}
+</style>
+</head>
+<body>
+<div id="mall-main" v-clock  class="HomePage body_bottom_x65 bjbs">
+<!-- 	<div id="pullrefresh" class="">
+	<div class="mui-scroll"> -->
+	<header class="nav">
+	    <h1 class="title">空气净化器</h1>
+	</header>
+	
+	<div  class="SmartShopping_Product">
+		
+		<ul>
+			<template v-for="item in goodsList">
+				<li><a @click="goDetail(item.id)">				
+				<div class="SmartShopping_Productimg">
+					<img :src="item.listPicUrl" />
+				</div>
+				<div class="SmartShopping_Producttext">
+					<h2 class="SmartShopping_Product_Title">{{item.name}}</h2>
+					<p class="SmartShopping_Product_Describe">{{item.goodsBrief}}</p>
+					<template v-for="tag in item.tags">
+							<span>{{tag}}</span>
+					</template>
+					
+					<h3 class="SmartShopping_Product_Price">￥<span>{{item.retailPrice}}</span>
+						<span style="text-decoration: line-through;color:#AAA;padding:0 10px 0 10px;font-size: 16PX;">￥{{item.marketPrice}}&nbsp;</span>
+					</h3>
+					<!-- <button class="SmartShopping_Product_Buy">已售&nbsp;&nbsp;{{item.sellVolume}}</button> -->
+				</div>
+			</a></li>
+			</template>	
+		</ul>
+			
+	</div>
+	<!-- </div>
+		</div> -->
+<!--底部导航-->
+	<div id="footer" class="border-t">
+	    <ul class="flex-wrap" >
+	        <a href="../Activity/Home.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con " >互联</a>
+	        <a href="../Earnings/Earnings.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con " >收益</a>
+	        <a href="Mall.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con active" >商城</a>	        
+	        <a href="../User/User.html" tapmode="hover" onclick="randomSwitchBtn( this );" class="flex-con" >我的</a>	        
+	    </ul>
+	</div>
+<!--END底部导航-->	
+</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/mall/mall.js"></script>
+
+<script>
+	
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+
+
+</script>
+</html>

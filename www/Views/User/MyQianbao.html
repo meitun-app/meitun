@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的钱包</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="qianbao-main" v-clock class="myjifen myqianbao">
+	<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+		
+	<div class="mui-scroll">
+	<div class="orderFukuan">
+		
+			<header class="nav nav_wu">
+				<a href="MyQianbao_mingxi.html">钱包明细</a>
+				<!-- <a href="pullrefresh.html">钱包明细</a> -->
+				<a @click="goBack()"><img src="../../img/icon/LeftArrowbai@2x.png" /></a>		
+				<h1 class="title">我的钱包</h1>
+				
+			</header>
+		
+		<div class="info">
+		
+			<div>
+				<span>可用余额</span>
+				<img src="../../img/icon/jifenkejian@2x.png" />
+			</div>
+			<p>{{asset.wallet}}<span>元</span></p>
+		</div>
+	</div>
+	
+	<div class="myjifenbox">
+		<div class="userBoxFirst">
+			<div>
+				<p><a href="#">累计收益</a></p>
+				<p><a href="#">{{totalAmount}}</a></p>
+			</div>
+			<div>
+				<p><a href="#">昨日收益</a></p>
+				<p><a href="#">{{yesterAmount}}</a></p>
+			</div>
+		</div>
+		<div class="myjifen_tabl">
+			<h1>资金收益报表</h1>
+			<div>
+				<table style="width: 100%; ">
+				    <tr style="width: 100%;color: #999999;font-size: 12px;border-bottom: 1px solid #f0f0f0;">
+				        <td style="width: 15%;">日期&nbsp;</td>
+				        <td style="width: 15%;" colspan="2">收益&nbsp;</td>
+				        <td style="width: 20%;"colspan="2">直属收益</td>
+				        <td style="width: 20%;">团队收益</td>			      
+						<td style="width: 20%;" colspan="2">服务收益</td>
+				    </tr>
+				    <template v-if="incomeList.length == 0">
+						<tr  style="width: 100%;color: #999999;font-size: 12px;">			       	
+				        	<td colspan="8" style="width: 100%;padding:20px 10px 10px 10px;text-align: center;">您还没有任何收益</td>
+				    	</tr>
+					</template>	
+					<template  v-else>
+						<template v-for="item in incomeList">
+							<tr style="width: 100%;">
+								<td style="width: 15%; color: #999999;font-size: 12px;">{{item.time}}</td>
+								<td style="width: 15%; color: #FF5400;">{{item.totalIncome}}</td>
+								<td style="width: 5%;">=</td>
+								<td style="width: 15%;">{{item.directIncome}}</td>
+								<td style="width: 5%;">+</td>
+								<td style="width: 15%;">{{item.teamIncome}}</td>
+								<td style="width: 5%;">+</td>
+								<td style="width: 15%;">{{item.ocenterIncome}}</td>
+							</tr>							
+						</template>	
+					</template>	
+					
+				    <!--<tr style="width: 100%;">
+								<td style="width: 15%; color: #999999;font-size: 12px;">2019.5.10</td>
+								<td style="width: 15%; color: #FF5400;">700</td>
+								<td style="width: 5%;">=</td>
+								<td style="width: 15%;">300</td>
+								<td style="width: 5%;">+</td>
+								<td style="width: 15%;">200</td>
+								<td style="width: 5%;">+</td>
+								<td style="width: 15%;">200</td>
+							</tr>-->
+				</table>				
+			</div>
+
+		</div>
+	</div>
+	<div class="bottom_fix">
+		<span><a href="MyQianbao_tixian.html">提现</a></span>
+		<span><a href="MyQianbao_congzhi.html">充值</a></span>
+		<span><a href="MyQianbao_Exchange_Wallet.html?amount={{asset.wallet}}">转账</a></span>
+	</div>
+</div> 
+</div>
+
+</div>
+</body>
+
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/qianbao.js"></script>
+<script>
+//一、点击Tab切换时改变头部和自身的样式
+function randomSwitchBtn (tag) {
+	$(tag).addClass("active");
+	$(tag).siblings().removeClass("active");
+};	
+</script>
+</html>

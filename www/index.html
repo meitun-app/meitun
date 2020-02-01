@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>首页</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/qidongye.min.js"></script>
+    
+    <link href="css/qidongye.css" rel="stylesheet"/>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+<script type="text/javascript">         
+      // 等待所有加载 
+  $(document).ready(function(){
+        $(".fakeloader").fakeLoader({
+            timeToHide:4000,
+            bgColor:"#fff",
+            spinner:"spinner6"
+            });
+        }); 
+</script> 
+</head>
+<body>
+    
+<div class="container">
+    <div class="fakeloader" style="background: transparent;"></div>
+</div>
+</body>
+
+<script>
+	window.setTimeout("window.location='Views/Activity/Home.html'",1500); 
+</script>
+</html>

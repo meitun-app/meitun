@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>提现</title>
+    <script src="../../js/jquery-3.3.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    
+	<link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+	<link href="../../css/mui.picker.min.css" rel="stylesheet"/>
+<style type="text/css">
+
+</style>
+</head>
+<body>
+<div id="tixian-main" v-clock class="MyQianbao_tixian">
+	<header class="nav">
+		<a></a>
+		<a @click="goBack()"><img src="../../img/icon/LeftArrow@2x.png" /></a>		
+	    <h1 class="title">提现</h1>		    
+	</header>
+	<div class="jine">可提金额 (元)：<span>{{asset.wallet}}</span></div>
+	<div class="zhihang">		
+		<li>
+			<img src="../../img/icon/yinhangka@2x.png" />
+			<div>
+				<h3>{{bank.bankName}}</h3>
+				<p>{{bank.cardNo}}</p>
+			</div>
+			
+		</li>
+		<div @click="chooseBank"><img src="../../img/icon/RightArrow@2x@2x.png" /></div>
+	</div>
+	<div class="tixianjine">
+		<p>提现金额</p>
+		<div>
+			<li>
+				<span>¥</span><input v-model="wallet" placeholder="提现金额" id="walletMoney"/>
+			</li>
+			<img @click="cleanNumber()" src="../../img/icon/Del.png" />
+		</div>
+	</div>
+	<p class="audit">提现要收取手续费</p>
+	<p class="audit">提现一般需要3-5个工作日到账</p>
+	<div class=" tijiao buy-confirm">提交</div>
+	
+	
+<!--密码输入-->
+<div class="common-part pay-part">
+        <div class="common-dialog pay-dialog">
+        	<div class="clearfix">
+        		<div class="del"><img src="../../img/icon/Del.png" /></div>
+        		<div  class="dialog-title">请输入支付密码</div>
+        	</div>
+            
+<!--            <div class="pay-money">$10000.00</div>-->
+            <div class="pay-password">
+                <input @keyup="checkNumberLen()" type="password" v-model="payPassword" maxlength="7" class="real-ipt">
+                <div class="surface-ipts">
+                    <div class="surface-ipt">
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                        <input type="password" >
+                    </div>
+                </div>
+            </div>
+			<div id="showSetting" style="display: none;" @click="goSettingPayWord()">未设置支付密码，<a>去设置</a></div>
+            <!--<div class="btns">
+                <button class="cancel-btn">取消</button>
+                <button class="confirm-btn">付款</button>
+            </div>-->
+        </div>
+    </div>
+ <!--end密码输入-->   
+    
+</div>
+</body>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/vue.min.js"></script>
+<script src="../../js/mui.picker.min.js"></script>
+<script src="../../js/aui-slide.js"></script>
+<script src="../../js/base.js"></script>
+<script src="../../js/user/tixian.js"></script>
+<script>
+$(".buy-confirm").on("click", function () {
+	let bool = $('#walletMoney').val()>0
+	if(!bool){
+		mui.toast("提现金额需大于0");
+		return
+	}
+	let bool2 = $('#walletMoney').val() >$('.jine span').html()
+	if(bool2){
+		mui.toast("提现余额不足");
+		return
+	}
+    // 打开支付密码对话框并生成订单
+    $('.pay-part').css("display", "block");
+})
+$(".cancel-btn").on("click", function () {
+    $('.pay-part').css("display", "none");
+    $inputs.each(function () {  //input清空
+        $(this).val("");
+    })
+    pwd = "";
+    $(".real-ipt").val("");
+})
+$(".confirm-btn").on("click", function () {
+    console.log("password:" + pwd);
+    if (len === 6 && pwd) {     //付款
+ 
+                    // $.toast("密码错误")
+        window.location.href = 'activity_buy_result.html'
+ 
+                } else {
+                    $.toast("请输入支付密码")
+                }
+            })
+ 
+            var pwd = "";
+var len = 0;
+// type=tel input框
+var $inputs = $(".surface-ipt input");
+$(".real-ipt").on("input", function () {
+    if (!$(this).val()) {   //无值
+    }
+    if (/^[0-9]*$/g.test($(this).val())) {  //有值且只能是数字（正则）
+        pwd = $(this).val().trim();
+        len = pwd.length;
+        for (var i in pwd) {
+            $inputs.eq(i).val(pwd[i]);
+        }
+        $inputs.each(function () {  //将有值的当前input 后面的所有input清空
+            var index = $(this).index();
+            if (index >= len) {
+                $(this).val("");
+            }
+        })
+        if (len === 6) {
+            //执行付款操作
+                    }
+ 
+                } else {    //清除val中的非数字，返回纯number的value
+        var arr = $(this).val().match(/\d/g);
+        try {
+            $(this).val($(this).val().slice(0,$(this).val().lastIndexOf(arr[arr.length-1])+1));
+        } catch(e) {
+            // console.log(e.message)
+            //清空
+            $(this).val("");
+        }
+    }
+    console.log("password:" + pwd);
+})
+//  获取焦点事件避免输入键盘挡住对话框
+$('.real-ipt').on('focus', function () {
+    $('.pay-dialog').css('top','1rem')
+})
+$('.real-ipt').on('blur', function () {
+    $('.pay-dialog').css('top','3rem')
+})
+
+//点击输出支付款
+$(".del").click(function(){
+	$(".common-part").hide();
+})
+</script>
+</html>
